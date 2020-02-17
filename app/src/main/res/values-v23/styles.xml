@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ToolBarTheme.ToolBarStyle" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <item name="android:titleTextColor">@color/colorWhite</item>
+    </style>
+</resources>

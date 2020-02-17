@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textBigsize">30sp</dimen>
+    <dimen name="buttonHeightMain">70dp</dimen>
+    <dimen name="paddingMain" >40dp</dimen>
+    <dimen name="bigFont">60dp</dimen>
+    <dimen name="padding10dp">10dp</dimen>
+    <dimen name="margin8dp">8dp</dimen>
+    <dimen name="imvIconSmall">24dp</dimen>
+    <dimen name="imvIcon">36dp</dimen>
+    <dimen name="padding5dp">5dp</dimen>
+    <dimen name="margin16dp">16dp</dimen>
+    <dimen name="fontNormal">14sp</dimen>
+    <dimen name="fontMediumSmall">16sp</dimen>
+    <dimen name="fontMedium">18sp</dimen>
+    <dimen name="margin10dp">10dp</dimen>
+    <dimen name="widthTabLogin">200dp</dimen>
+    <dimen name="margin24dp">24dp</dimen>
+    <dimen name="logoLoadingWith">400dp</dimen>
+    <dimen name="logoLoadingHeight">180dp</dimen>
+    <dimen name="app_bar_height">150dp</dimen>
+    <dimen name="marginBiggest">80dp</dimen>
+    <dimen name="imvTitleHomeHeight">150dp</dimen>
+    <dimen name="cardviewWidth">140dp</dimen>
+    <dimen name="cardviewHeight">160dp</dimen>
+    <dimen name="cardview_shadow">10dp</dimen>
+    <dimen name="imvService">50dp</dimen>
+    <dimen name="linearMarginHomePage">150dp</dimen>
+    <dimen name="padding20dp">20dp</dimen>
+    <dimen name="radiusCardView">10dp</dimen>
+    <dimen name="cardviewHeightVoucher">300dp</dimen>
+    <dimen name="cardview_shadowVoucher">5dp</dimen>
+    <dimen name="lineHeightMedium">20dp</dimen>
+    <dimen name="fontSmall">10sp</dimen>
+    <dimen name="fontSmallBigger">16sp</dimen>
+    <dimen name="radiusMedium">5dp</dimen>
+    <dimen name="strokeSmaill">1dip</dimen>
+    <dimen name="radiusLarge">15dp</dimen>
+    <dimen name="radiusBiggest">40dp</dimen>
+    <dimen name="sideIndicator">4sp</dimen>
+    <dimen name="slideViewHeight">350dp</dimen>
+    <dimen name="backgroundTitleHeight">100dp</dimen>
+    <dimen name="margin28dp">28dp</dimen>
+    <dimen name="margin40dp">40dp</dimen>
+    <dimen name="padding2dp">2dp</dimen>
+    <dimen name="width0dp">0dp</dimen>
+
+
+    <dimen name="text_medium_letter_spacing">0.01</dimen>
+    <dimen name="line_spacing_extra_title">2sp</dimen>
+    <dimen name="margin4dp">4dp</dimen>
+    <dimen name="padding15dp">15dp</dimen>
+    <dimen name="fillLine">1dp</dimen>
+    <dimen name="dialogButtonHeight">40dp</dimen>
+    <dimen name="radiusIosdialog">280dp</dimen>
+    <dimen name="cameraControlHeight">50dp</dimen>
+    <dimen name="takeAPicture">80dp</dimen>
+    <dimen name="elevationSmall">2dp</dimen>
+    <dimen name="empty">0dp</dimen>
+    <dimen name="imageAlbum">100dp</dimen>
+    <dimen name="imvAlbumProduct">150dp</dimen>
+
+    <dimen name="searchViewHeight">30dp</dimen>
+    <dimen name="width3dp">3dp</dimen>
+    <dimen name="margin60dp">60dp</dimen>
+    <dimen name="lineHeightBig">100dp</dimen>
+
+</resources>

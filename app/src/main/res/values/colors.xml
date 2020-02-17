@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorOrange">#F35708</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhite50">#80FFFFFF</color>
+    <color name="matteBlack">#0E0E0E</color>
+    <color name="colorOrangeYellow">#F47F16</color>
+    <color name="colorGray">#808080</color>
+    <color name="colorGray1">#F2F2F2</color>
+    <color name="colorGray2">#D6D6D6</color>
+    <color name="colorGray3">#66000000</color>
+    <color name="colorGray4">#26000000</color>
+
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlack50">#80000000</color>
+    <color name="colorWhite1">#FAF9F9</color>
+    <color name="colorOrangeYellowDark">#FFF55808</color>
+
+    //Custom dialog
+
+    <color name="text_shadow">#1A000000</color>
+    <color name="layer_ios_dialog">#80000000</color>
+
+    <color name="title_ios_dialog">#000000</color>
+    <color name="message_ios_dialog">#020202</color>
+    <!--<color name="action_button_ios_dialog">#E64591f0</color>-->
+    <color name="action_button_ios_dialog">#1981fb</color>
+
+    <color name="separator_ios_dialog">#1A000000</color>
+    <color name="highlight_ios_dialog">#0F000000</color>
+
+    <color name="endColorDialog">#20FFFFFF</color>
+    <color name="colorBlue">#28B6F6</color>
+    <color name="colorGreen">#71D407</color>
+
+</resources>

@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">GoPDU</string>
+    <string name="login">Đăng nhập</string>
+    <string name="register">Đăng kí</string>
+    <string name="lastNameHint">Họ*</string>
+    <string name="firstNameHint">Tên*</string>
+    <string name="areaCode">+84</string>
+    <string name="phoneHint">Di động*</string>
+    <string name="emailHint">Email*</string>
+    <string name="dateOfBirth">Ngày sinh</string>
+    <string name="pickADate">Chọn ngày</string>
+    <string name="errorFirstName">Không được để trống họ</string>
+    <string name="errorLastName">Không được để trống tên</string>
+    <string name="errorDate">Không được để trống ngày sinh</string>
+    <string name="errorEmail">Không được để trống địa chỉ email</string>
+    <string name="errorPhone">Không được để trống số điện thoại</string>
+    <string name="exitsAccount">Đã tồn tại tài khoản này trên hệ thống</string>
+    <string name="checkConnect">Vui lòng kiểm tra lại kết nối mạng</string>
+    <string name="Comfirm">Xác thực</string>
+    <string name="active">Kích hoạt</string>
+    <string name="helperActivityOTP">ADiDi sẽ gửi một mã kích hoạt qua số điện thoại %1$s. Dùng mã kích hoạt vừa nhận để kích hoạt tài khoản></string>
+    <string name="otpEmpty">Bạn chưa nhập đủ mã OTP</string>
+    <string name="successLogin">Đăng nhập thành công</string>
+    <string name="otpError">Sai mã xác thực vui lòng kiểm tra lại</string>
+    <string name="registerSuccess">Đăng kí thành công</string>
+</resources>

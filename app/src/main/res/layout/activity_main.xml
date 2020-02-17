@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <FrameLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPagerVoucher"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="@dimen/buttonHeightMain" />
+
+                <com.rd.PageIndicatorView
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:id="@+id/indicatorVoucher"
+                    app:piv_animationType="drop"
+                    app:piv_dynamicCount="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:piv_interactiveAnimation="true"
+                    app:piv_selectedColor="@color/colorOrangeYellow"
+                    app:piv_unselectedColor="@color/colorGray2"
+                    app:piv_radius="@dimen/sideIndicator"
+                    app:piv_autoVisibility="true"
+                    android:layout_marginBottom="@dimen/margin105dp"
+                    />
+                <LinearLayout
+                    android:layout_gravity="bottom"
+                    android:gravity="bottom"
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/btnLogin"
+                        style="@style/buttonBigsize"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorBlue"
+                        android:text="@string/login"/>
+                    <Button
+                        android:id="@+id/btnRegister"
+                        style="@style/buttonBigsize"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/register"
+                        android:background="@color/colorAccent"
+                        />
+                </LinearLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+</layout>

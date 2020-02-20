@@ -1,4 +1,4 @@
-package gopdu.pdu.vesion2.Service;
+package gopdu.pdu.vesion2.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

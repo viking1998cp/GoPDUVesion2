@@ -5,7 +5,7 @@
     <string name="lastNameHint">Họ*</string>
     <string name="firstNameHint">Tên*</string>
     <string name="areaCode">+84</string>
-    <string name="phoneHint">Di động*</string>
+    <string name="phoneHint">389512898</string>
     <string name="emailHint">Email*</string>
     <string name="dateOfBirth">Ngày sinh</string>
     <string name="pickADate">Chọn ngày</string>
@@ -18,9 +18,25 @@
     <string name="checkConnect">Vui lòng kiểm tra lại kết nối mạng</string>
     <string name="Comfirm">Xác thực</string>
     <string name="active">Kích hoạt</string>
-    <string name="helperActivityOTP">ADiDi sẽ gửi một mã kích hoạt qua số điện thoại %1$s. Dùng mã kích hoạt vừa nhận để kích hoạt tài khoản></string>
+    <string name="helperActivityOTP">GoPDU sẽ gửi một mã kích hoạt qua số điện thoại %1$s. Dùng mã kích hoạt vừa nhận để kích hoạt tài khoản></string>
     <string name="otpEmpty">Bạn chưa nhập đủ mã OTP</string>
     <string name="successLogin">Đăng nhập thành công</string>
     <string name="otpError">Sai mã xác thực vui lòng kiểm tra lại</string>
     <string name="registerSuccess">Đăng kí thành công</string>
+    <string name="regexEmail">\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b</string>
+    <string name="errorEmailFormat">Định dạng email không đúng</string>
+    <string name="wellcometoApp">Chào mừng bạn!</string>
+    <string name="enterTheNumberPhone">Nhập số di động của bạn để tiếp tục</string>
+    <string name="notExitsAccount">Chưa tồn tại tài khoản vui lòng đăng kí và đăng nhập lại</string>
+    <string name="waiting">Vui lòng chờ trong giây lát</string>
+    <string name="timerotp">Mã kích hoạt sẽ hết hạn trong: %1$d</string>
+    <string name="sendagainotp">Yên cầu nhận lại mã</string>
+    <string name="title_CustomerMap">Đặt chuyến đi</string>
+    <string name="title_History">Hoạt động</string>
+    <string name="title_programfile">Tài khoản</string>
+    <string name="title_activity_customer_map">Map</string>
+    <string name="whereDoYouGo">Bạn muốn đi đâu</string>
+    <string name="searchLocation">Tìm điểm đến</string>
+    <string name="pickOnMapView">Chọn bằng bản đồ</string>
+    <string name="distance">%.1f km</string>
 </resources>

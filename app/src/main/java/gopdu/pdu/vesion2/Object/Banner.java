@@ -1,4 +1,4 @@
-package gopdu.pdu.vesion2.Object;
+package gopdu.pdu.vesion2.object;
 
 public class Banner {
 

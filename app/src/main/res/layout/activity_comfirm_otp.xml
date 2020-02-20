@@ -5,7 +5,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activity.ComfirmOtpActivity"
+        tools:context=".activity.ComfirmOtpActivity"
         android:orientation="vertical"
         android:background="@drawable/ic_background">
         <androidx.appcompat.widget.Toolbar
@@ -59,8 +59,18 @@
                 android:textColor="@color/colorBlue"
                 android:gravity="center"
                 />
-        </LinearLayout>
 
+            <TextView
+                android:id="@+id/tvTimer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/colorOrangeYellow"
+                android:textSize="@dimen/fontMediumSmall"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
 
     </LinearLayout>

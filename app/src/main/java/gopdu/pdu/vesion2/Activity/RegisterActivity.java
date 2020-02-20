@@ -1,4 +1,4 @@
-package gopdu.pdu.vesion2.Activity;
+package gopdu.pdu.vesion2.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 
@@ -16,10 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import gopdu.pdu.vesion2.Common;
-import gopdu.pdu.vesion2.Object.Customer;
+import gopdu.pdu.vesion2.object.Customer;
 import gopdu.pdu.vesion2.R;
-import gopdu.pdu.vesion2.Service.APIService;
-import gopdu.pdu.vesion2.Service.DataService;
+import gopdu.pdu.vesion2.service.APIService;
+import gopdu.pdu.vesion2.service.DataService;
 import gopdu.pdu.vesion2.databinding.ActivityRegisterBinding;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +32,6 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(RegisterActivity.this, R.layout.activity_register);
-
         init();
         ActionToolbar();
         setUpOnClick();
@@ -51,12 +49,13 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
                         binding.btnDateOfBirth.setText(dayOfMonth+"/"+(month+1)+"/"+year);
+
                     }
                 },
                 dateNow.getYear()+1900,
                 dateNow.getMonth(),
                 dateNow.getDate());
-        Log.d("BBB", "setUpOnClick: "+dateNow.getYear());
+
         binding.btnDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 boolean check = true;
                 if(binding.etfirstName.getText().toString().trim().equals("")) {
                     check = false;
@@ -83,15 +83,19 @@ public class RegisterActivity extends AppCompatActivity {
                 if(binding.etEmail.getText().toString().trim().equals("")){
                     check = false;
                     binding.etEmail.setError(getString(R.string.errorEmail));
+                } else if(!Common.checkEmail(binding.etEmail.getText().toString().trim())){
+                    check = false;
+                    binding.etEmail.setError(getString(R.string.errorEmailFormat));
                 }
                 if(binding.etPhone.getText().toString().trim().equals("")){
                     check = false;
                     binding.etPhone.setError(getString(R.string.errorPhone));
                 }
                 if(check == true){
+
                     Map<String, String> params = new HashMap<>();
                     params.put("driverOrCustomer", "Customer");
-                    params.put("numberphone",Common.editPhoneNumber(binding.etPhone.getText().toString()));
+                    params.put("numberphone",Common.formatPhoneNumber(binding.etPhone.getText().toString()));
                     retrofit2.Call<String> checkExits = dataService.checkExits(params);
                     checkExits.enqueue(new Callback<String>() {
                         @Override
@@ -102,14 +106,13 @@ public class RegisterActivity extends AppCompatActivity {
                                     customer.setName(binding.etfirstName.getText() +" "+binding.etLastname.getText());
                                     customer.setBirthDate(binding.btnDateOfBirth.getText().toString());
                                     customer.setEmail(binding.etEmail.getText().toString());
-                                    customer.setNumberphone(Common.editPhoneNumber(binding.etPhone.getText().toString()));
+                                    customer.setNumberphone(Common.formatPhoneNumber(binding.etPhone.getText().toString()));
                                     Intent intent = new Intent(RegisterActivity.this, ComfirmOtpActivity.class);
                                     intent.putExtra("Customer",customer);
                                     startActivity(intent);
                                 }else {
                                     Common.ShowToastShort(getString(R.string.exitsAccount));
                                 }
-                                Log.d("BBB", "onResponse: "+response.body());
                             }else {
                                 Common.ShowToastShort(getString(R.string.checkConnect));
                             }
@@ -118,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
-                            Log.d("BBB", "onFailure: "+t.getMessage());
+                            Common.ShowToastShort(getString(R.string.checkConnect));
                         }
                     });
                 }

@@ -23,9 +23,12 @@ android {
 }
 
 dependencies {
+    implementation group: 'commons-io', name: 'commons-io', version: '2.0.1'
+    implementation "commons-io:commons-io:+"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.android.support:appcompat-v7:29.+'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
@@ -41,9 +44,18 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:4.0.0'
     implementation 'com.google.firebase:firebase-storage:16.1.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
-    implementation 'com.google.android.libraries.places:places:1.1.0'
     implementation 'com.github.jd-alexander:library:1.1.0'
     implementation 'com.google.maps:google-maps-services:0.1.20'
+    implementation 'com.google.maps.android:android-maps-utils:0.5+'
+    implementation 'com.google.android.play:core:1.6.0'
+
+    //Search location
+    implementation 'com.google.maps:google-maps-services:0.1.20'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.libraries.places:places-compat:2.0.0'
+    implementation 'com.google.android.gms:play-services-places:16.1.0'
+
 
     //Slide library
     implementation 'com.github.smarteist:autoimageslider:1.3.2-appcompat'

@@ -1,4 +1,4 @@
-package gopdu.pdu.vesion2.Activity;
+package gopdu.pdu.vesion2.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,9 +6,9 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,18 +18,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.mukesh.OnOtpCompletionListener;
-import com.mukesh.OtpView;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import gopdu.pdu.vesion2.Common;
-import gopdu.pdu.vesion2.Object.Customer;
+import gopdu.pdu.vesion2.object.Customer;
 import gopdu.pdu.vesion2.R;
-import gopdu.pdu.vesion2.Service.APIService;
-import gopdu.pdu.vesion2.Service.DataService;
+import gopdu.pdu.vesion2.service.APIService;
+import gopdu.pdu.vesion2.service.DataService;
 import gopdu.pdu.vesion2.databinding.ActivityComfirmOtpBinding;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +40,7 @@ public class ComfirmOtpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String VerifyCationId;
     private DataService dataService;
+    private int timer = 60;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,26 @@ public class ComfirmOtpActivity extends AppCompatActivity {
         init();
         ActionToolbar();
         setOnClick();
-        SendVerifyCode(customer.getNumberphone());
+//        SendVerifyCode(customer.getNumberphone());
+        setTimerOTP();
+    }
+
+    private void setTimerOTP() {
+        timer = 60;
+        new CountDownTimer(60000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                timer--;
+                binding.tvTimer.setText(getString(R.string.timerotp,(timer)));
+                //here you can have your logic to set text to edittext
+                Log.d("BBB", "onTick: "+timer);
+            }
+
+            public void onFinish() {
+                binding.tvTimer.setText(getString(R.string.sendagainotp));
+            }
+
+        }.start();
     }
 
     private void setOnClick() {
@@ -67,6 +85,16 @@ public class ComfirmOtpActivity extends AppCompatActivity {
 
                 }else {
                     Common.ShowToastShort(getString(R.string.otpEmpty));
+                }
+            }
+        });
+
+        binding.tvTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(timer ==0){
+                    SendVerifyCode(customer.getNumberphone());
+                    setTimerOTP();
                 }
             }
         });
@@ -105,8 +133,9 @@ public class ComfirmOtpActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     insertAccount();
                     Intent intent = new Intent(ComfirmOtpActivity.this,CustomerUseMainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    finish();
                 }else {
                     Common.ShowToastShort(getString(R.string.otpError));
                 }

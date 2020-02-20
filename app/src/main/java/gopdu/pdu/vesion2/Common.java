@@ -1,16 +1,26 @@
 package gopdu.pdu.vesion2;
 
+import android.app.Activity;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.util.Strings;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.SphericalUtil;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class Common {
+
 
     //date now
     public static String getNgayHienTai() {
@@ -62,7 +72,9 @@ public class Common {
         }
         return haveConnectMobile || haveConnectWfi;
     }
-    public static String editPhoneNumber(String phone){
+
+    //Format to phone number
+    public static String formatPhoneNumber(String phone){
         String newphone="+84";
         if(phone.startsWith("0")){
             newphone = newphone + phone.substring(1,phone.length());
@@ -74,4 +86,43 @@ public class Common {
             return phone;
         }
     }
+
+    public static boolean checkEmail(final String email){
+        Pattern pattern = Pattern.compile(GoPDUApplication.getInstance().getString(R.string.regexEmail));
+        if(pattern.matcher(email).matches()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public static float getDistance(LatLng destinationLng, LatLng pickupLng){
+        return (float) SphericalUtil.computeDistanceBetween(destinationLng, pickupLng);
+    }
+
+    public  static LatLng getLocationFromAddress(String strAddress) {
+
+        Geocoder coder = new Geocoder(GoPDUApplication.getInstance());
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
+    }
+
+
 }

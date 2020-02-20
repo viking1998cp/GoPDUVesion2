@@ -1,4 +1,4 @@
-package gopdu.pdu.vesion2.Adapter;
+package gopdu.pdu.vesion2.adapter;
 
 import android.net.Uri;
 import android.util.Log;
@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import gopdu.pdu.vesion2.Object.Banner;
+import gopdu.pdu.vesion2.object.Banner;
 import gopdu.pdu.vesion2.R;
 import gopdu.pdu.vesion2.databinding.ItemBannerBinding;
 

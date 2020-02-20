@@ -1,9 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activity.LoginActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_background"
+        android:orientation="vertical"
+        tools:context=".activity.RegisterActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/ToolBarTheme.ToolBarStyle"
+            android:theme="@style/ToolBarTheme.ToolBarStyle"
+            app:title="@string/login"
+
+            />
+
+        <LinearLayout
+            android:paddingTop="@dimen/padding30dp"
+            android:paddingBottom="@dimen/padding40dp"
+            android:paddingLeft="@dimen/padding20dp"
+            android:paddingRight="@dimen/padding20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="@dimen/bigFont"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin28dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wellcometoApp"
+                    android:textSize="@dimen/bigFontMedium"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    />
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enterTheNumberPhone"
+                    android:textSize="@dimen/fontMedium"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:weightSum="10"
+                    android:layout_marginTop="@dimen/margin16dp"
+                    >
+
+                    <ImageView
+                        android:background="@color/colorWhite"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:src="@drawable/logo_viettnam" />
+
+                    <TextView
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/areaCode"
+                        android:textSize="@dimen/fontMedium"
+                        android:textColor="@color/colorBlack"
+                        android:layout_marginRight="@dimen/margin10dp"
+                        />
+
+                    <EditText
+                        android:paddingLeft="@dimen/padding10dp"
+                        android:id="@+id/etPhone"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="7"
+                        android:hint="@string/phoneHint"
+                        android:background="@color/colorWhite"
+                        android:textSize="@dimen/fontMediumBig"
+                        android:inputType="number"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:layout_gravity="bottom"
+                    android:id="@+id/btnLogin"
+                    android:layout_marginTop="@dimen/margin8dp"
+                    android:background="@drawable/background_button_no_boder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:text="@string/login"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -1,21 +1,27 @@
 package gopdu.pdu.vesion2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import gopdu.pdu.vesion2.Activity.RegisterActivity;
-import gopdu.pdu.vesion2.Adapter.BannerAdapter;
-import gopdu.pdu.vesion2.Object.Banner;
+import gopdu.pdu.vesion2.activity.CustomerUseMainActivity;
+import gopdu.pdu.vesion2.activity.LoginActivity;
+import gopdu.pdu.vesion2.activity.RegisterActivity;
+import gopdu.pdu.vesion2.adapter.BannerAdapter;
+import gopdu.pdu.vesion2.object.Banner;
 import gopdu.pdu.vesion2.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,14 +31,38 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer;
     private final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
     private final long PERIOD_MS = 1500;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mStateListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
 
+        init();
         setupBanner();
         setupOnClick();
         autoBanner();
+    }
+
+    private void init() {
+        mAuth = FirebaseAuth.getInstance();
+        mStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                ProgressDialog progress = new ProgressDialog(MainActivity.this);
+                progress.setMessage(getString(R.string.waiting));
+                progress.show();
+                String user = firebaseAuth.getUid();
+                if(user != null){
+                    Intent intent = new Intent(MainActivity.this, CustomerUseMainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
+                progress.dismiss();
+            }
+        };
     }
 
     private void autoBanner() {
@@ -81,6 +111,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private ArrayList<Banner> banners = new ArrayList<>();
@@ -92,5 +130,16 @@ public class MainActivity extends AppCompatActivity {
         BannerAdapter bannerAdapter = new BannerAdapter(banners);
         binding.viewPagerVoucher.setAdapter(bannerAdapter);
         binding.indicatorVoucher.setViewPager(binding.viewPagerVoucher);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAuth.removeAuthStateListener(mStateListener);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mStateListener);
     }
 }

@@ -3,6 +3,11 @@
     <dimen name="margin105dp">105dp</dimen>
     <dimen name="padding40dp">40dp</dimen>
     <dimen name="padding30dp">30dp</dimen>
-    <dimen name="peekHeightMenu">300dp</dimen>
+
+    <dimen name="peekHeightMenu">250dp</dimen>
+    <dimen name="peekHeightMenuActivity">400</dimen>
+
     <dimen name="buttonSearchHeight">40dp</dimen>
+    <dimen name="sizeLogoSplash">200dp</dimen>
+    <dimen name="menuSize">55dp</dimen>
 </resources>

@@ -69,6 +69,9 @@ dependencies {
     //Otpview
     implementation 'com.poovam:pin-edittext-field:1.2.1'
 
+    //Back press fragment
+    implementation 'net.skoumal.fragmentback:fragment-back:0.2.3'
+
     api 'com.squareup.picasso:picasso:2.5.2'
 
 

@@ -1,4 +1,6 @@
 <resources>
+
+    //input infomaton user
     <string name="app_name">GoPDU</string>
     <string name="login">Đăng nhập</string>
     <string name="register">Đăng kí</string>
@@ -9,6 +11,8 @@
     <string name="emailHint">Email*</string>
     <string name="dateOfBirth">Ngày sinh</string>
     <string name="pickADate">Chọn ngày</string>
+
+    //Error
     <string name="errorFirstName">Không được để trống họ</string>
     <string name="errorLastName">Không được để trống tên</string>
     <string name="errorDate">Không được để trống ngày sinh</string>
@@ -16,9 +20,8 @@
     <string name="errorPhone">Không được để trống số điện thoại</string>
     <string name="exitsAccount">Đã tồn tại tài khoản này trên hệ thống</string>
     <string name="checkConnect">Vui lòng kiểm tra lại kết nối mạng</string>
-    <string name="Comfirm">Xác thực</string>
-    <string name="active">Kích hoạt</string>
-    <string name="helperActivityOTP">GoPDU sẽ gửi một mã kích hoạt qua số điện thoại %1$s. Dùng mã kích hoạt vừa nhận để kích hoạt tài khoản></string>
+    <string name="dialog_thongbao">Thông báo</string>
+    <string name="dialog_title_close">Đóng</string>
     <string name="otpEmpty">Bạn chưa nhập đủ mã OTP</string>
     <string name="successLogin">Đăng nhập thành công</string>
     <string name="otpError">Sai mã xác thực vui lòng kiểm tra lại</string>
@@ -28,15 +31,28 @@
     <string name="wellcometoApp">Chào mừng bạn!</string>
     <string name="enterTheNumberPhone">Nhập số di động của bạn để tiếp tục</string>
     <string name="notExitsAccount">Chưa tồn tại tài khoản vui lòng đăng kí và đăng nhập lại</string>
+    <string name="toast_msg_no_support">Thiết bị không hỗ trợ phần mềm</string>
+    <string name="toast_msg_setup_service_google">Dịch vụ Google play đã được cài đặt</string>
+
+    //Active
+    <string name="Comfirm">Xác nhận</string>
+    <string name="active">Kích hoạt</string>
+    <string name="helperActivityOTP">GoPDU sẽ gửi một mã kích hoạt qua số điện thoại %1$s. Dùng mã kích hoạt vừa nhận để kích hoạt tài khoản></string>
     <string name="waiting">Vui lòng chờ trong giây lát</string>
     <string name="timerotp">Mã kích hoạt sẽ hết hạn trong: %1$d</string>
     <string name="sendagainotp">Yên cầu nhận lại mã</string>
-    <string name="title_CustomerMap">Đặt chuyến đi</string>
-    <string name="title_History">Hoạt động</string>
-    <string name="title_programfile">Tài khoản</string>
     <string name="title_activity_customer_map">Map</string>
     <string name="whereDoYouGo">Bạn muốn đi đâu</string>
     <string name="searchLocation">Tìm điểm đến</string>
     <string name="pickOnMapView">Chọn bằng bản đồ</string>
     <string name="distance">%.1f km</string>
+
+    //Menu main
+    <string name="title_CustomerMap">Đặt chuyến đi</string>
+    <string name="title_History">Hoạt động</string>
+    <string name="title_programfile">Tài khoản</string>
+    <string name="pickupHere">Đón tôi ở đây</string>
+    <string name="backagain">Nhấn nút back thêm lần nữa để thoát khỏi ứng dụng</string>
+    <string name="wherePickUp">Chúng tôi đón bạn ở đâu</string>
+
 </resources>

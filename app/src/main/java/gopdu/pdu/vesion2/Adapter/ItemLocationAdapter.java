@@ -89,6 +89,14 @@ public class ItemLocationAdapter extends RecyclerView.Adapter<ItemLocationAdapte
         mBounds = bounds;
     }
 
+    public LatLng getPickupLng() {
+        return pickupLng;
+    }
+
+    public void setPickupLng(LatLng pickupLng) {
+        this.pickupLng = pickupLng;
+    }
+
     @Override
     public Filter getFilter() {
 
@@ -150,19 +158,22 @@ public class ItemLocationAdapter extends RecyclerView.Adapter<ItemLocationAdapte
                     while (iterator.hasNext()) {
                         AutocompletePrediction prediction = iterator.next();
 
+                        LatLng destination = Common.getLocationFromAddress(prediction.getSecondaryText(STYLE_BOLD).toString());
+                        float distance = Common.getDistance(pickupLng, destination)/1000;
+                        if(distance<=90.0){
+                            final Location location = new Location();
+                            location.setNameLocation(prediction.getPrimaryText(STYLE_BOLD).toString());
+                            location.setNameDetailLocation(prediction.getSecondaryText(STYLE_BOLD).toString());
+                            location.setId(prediction.getPlaceId());
+
+                            //get latitude , longtitude  from places address
+                            location.setLat(destination.latitude);
+                            location.setLogt(destination.longitude);
+                            resultList.add(location);
+                        }else {
+                            continue;
+                        }
                         // Get the details of this prediction and copy it into a new PlaceAutocomplete object.
-                        final Location location = new Location();
-                        location.setNameLocation(prediction.getPrimaryText(STYLE_BOLD).toString());
-                        location.setNameDetailLocation(prediction.getSecondaryText(STYLE_BOLD).toString());
-                        location.setId(prediction.getPlaceId());
-
-                        //get latitude , longtitude  from places address
-                        LatLng destination = Common.getLocationFromAddress(location.getNameDetailLocation());
-                        location.setLat(destination.latitude);
-                        location.setLogt(destination.longitude);
-                        resultList.add(location);
-
-
                     }
                     notifyDataSetChanged();
                     Log.d("BBB", "getAutocomplete: " + resultList.size());
@@ -191,7 +202,7 @@ public class ItemLocationAdapter extends RecyclerView.Adapter<ItemLocationAdapte
         holder.binding.tvName.setText(location.getNameLocation());
         holder.binding.tvNameDetail.setText(location.getNameDetailLocation());
         float distance = Common.getDistance(pickupLng, new LatLng(location.getLat(), location.getLogt()))/1000;
-
+        Log.d("BBB", "onBindViewHolder: "+distance);
         holder.binding.tvDistance.setText(GoPDUApplication.getInstance().getString(R.string.distance, distance));
     }
 

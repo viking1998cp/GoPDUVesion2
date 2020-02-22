@@ -8,10 +8,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import gopdu.pdu.vesion2.Common;
+import gopdu.pdu.vesion2.IOnBackPressed;
 import gopdu.pdu.vesion2.R;
 import gopdu.pdu.vesion2.databinding.ActivityCustomerUseMainBinding;
 import gopdu.pdu.vesion2.fragment.CustomerMap_Fragment;
@@ -20,14 +23,18 @@ public class CustomerUseMainActivity extends AppCompatActivity {
 
     private ActivityCustomerUseMainBinding binding;
     private int back =1;
+    private Fragment customerFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(CustomerUseMainActivity.this, R.layout.activity_customer_use_main);
-        Fragment fragment;
-        fragment = new CustomerMap_Fragment();
-        loadFragment(fragment);
+        init();
         setUpMenuOnClick();
+    }
+
+    private void init() {
+        customerFragment = new CustomerMap_Fragment();
+        loadFragment(customerFragment);
     }
 
     private void setUpMenuOnClick() {
@@ -40,8 +47,7 @@ public class CustomerUseMainActivity extends AppCompatActivity {
                     case R.id.navigation_gifts:
                         if(back != 1){
                             back =1;
-                            fragment = new CustomerMap_Fragment();
-                            loadFragment(fragment);
+                            loadFragment(customerFragment);
                         }
                         return true;
                     case R.id.navigation_cart:
@@ -66,10 +72,34 @@ public class CustomerUseMainActivity extends AppCompatActivity {
         });
     }
     public void loadFragment(Fragment fragment) {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_container, fragment);
+        fragmentTransaction.replace(R.id.frame_container, fragment,"MyFragment");
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (getSupportFragmentManager().findFragmentByTag("MyFragment") != null)
+            getSupportFragmentManager().findFragmentByTag("MyFragment").setRetainInstance(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getSupportFragmentManager().findFragmentByTag("MyFragment") != null)
+            getSupportFragmentManager().findFragmentByTag("MyFragment").getRetainInstance();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(back==1){
+            if (!(customerFragment instanceof IOnBackPressed) || !((IOnBackPressed) customerFragment).onBackPressed()) {
+                super.onBackPressed();
+            }
+        }
     }
 }

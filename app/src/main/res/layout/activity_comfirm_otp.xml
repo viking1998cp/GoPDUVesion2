@@ -26,18 +26,19 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <com.poovam.pinedittextfield.LinePinField
+                    android:id="@+id/otpComfirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:background="@android:color/transparent"
+                    android:inputType="number"
+                    android:textSelectHandle="@drawable/text_handle"
+                    app:fieldColor="@color/colorGray"
                     app:highlightType="allFields"
-                android:textSelectHandle="@drawable/text_handle"
-                app:noOfFields="6"
-                app:fieldColor="@color/colorGray"
-                app:lineThickness="@dimen/otp_view_item_line_width"
-                app:isCursorEnabled="true"
-                android:background="@android:color/transparent"
-                android:id="@+id/otpComfirm"/>
+                    app:isCursorEnabled="true"
+                    app:lineThickness="@dimen/otp_view_item_line_width"
+                    app:noOfFields="6" />
 
             </LinearLayout>
 

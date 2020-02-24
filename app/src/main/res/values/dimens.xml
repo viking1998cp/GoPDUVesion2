@@ -10,4 +10,5 @@
     <dimen name="buttonSearchHeight">40dp</dimen>
     <dimen name="sizeLogoSplash">200dp</dimen>
     <dimen name="menuSize">55dp</dimen>
+    <dimen name="serviceHeight">70dp</dimen>
 </resources>

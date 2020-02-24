@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void autoBanner() {
 
-        binding.viewPagerVoucher.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        binding.viewPagerService.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 if (currentPage == banners.size()) {
                     currentPage = 0;
                 }
-                binding.viewPagerVoucher.setCurrentItem(currentPage++, true);
+                binding.viewPagerService.setCurrentItem(currentPage++, true);
             }
         };
 
@@ -128,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
         banners.add(new Banner(0, "http://gopdu.000webhostapp.com/Banner/ic_banner_2.png"));
         banners.add(new Banner(0,"http://gopdu.000webhostapp.com/Banner/ic_banner_3.png"));
         BannerAdapter bannerAdapter = new BannerAdapter(banners);
-        binding.viewPagerVoucher.setAdapter(bannerAdapter);
-        binding.indicatorVoucher.setViewPager(binding.viewPagerVoucher);
+        binding.viewPagerService.setAdapter(bannerAdapter);
+        binding.indicatorVoucher.setViewPager(binding.viewPagerService);
     }
     @Override
     protected void onStop() {

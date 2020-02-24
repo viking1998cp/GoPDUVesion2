@@ -11,7 +11,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,8 @@ import com.google.android.libraries.places.compat.AutocompleteFilter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -47,7 +51,14 @@ import gopdu.pdu.vesion2.GoPDUApplication;
 import gopdu.pdu.vesion2.IOnBackPressed;
 import gopdu.pdu.vesion2.R;
 import gopdu.pdu.vesion2.adapter.ItemLocationAdapter;
+import gopdu.pdu.vesion2.adapter.ItemServiceAdapter;
 import gopdu.pdu.vesion2.databinding.FragmentCustomerMapBinding;
+import gopdu.pdu.vesion2.object.Service;
+import gopdu.pdu.vesion2.service.APIService;
+import gopdu.pdu.vesion2.service.DataService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnCameraMoveStartedListener, GoogleMap.OnCameraIdleListener, LocationListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, IOnBackPressed {
 
@@ -66,7 +77,10 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
     private BottomSheetBehavior<View> behavior;
     private  LatLngBounds LAT_LNG_BOUNDS;
     private AutocompleteFilter autocompleteFilte;
-    private boolean doubleBackToExitPressedOnce = false;
+    private DataService dataService;
+    private ArrayList<Service> services;
+    private ItemServiceAdapter serviceAdapter;
+    private float distance = 0;
 
     @Nullable
     @Override
@@ -79,6 +93,7 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
         setRetainInstance(true);
         init();
         setUpOnClick();
+        setUpServiceView();
 
         binding.getRoot().setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -90,8 +105,32 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
         return binding.getRoot();
     }
 
+    private void setUpServiceView() {
+
+        services = new ArrayList<>();
+        serviceAdapter = new ItemServiceAdapter(services);
+        binding.viewPagerService.setAdapter(serviceAdapter);
+        retrofit2.Call<ArrayList<Service>> getService = dataService.getservice();
+        getService.enqueue(new Callback<ArrayList<Service>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Service>> call, Response<ArrayList<Service>> response) {
+                if(response.body() != null && response.body().size()>0){
+                    services.addAll(response.body());
+                    serviceAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Service>> call, Throwable t) {
+                Log.d("BBB", "onFailure: "+t.getMessage());
+                Common.ShowToastShort(getString(R.string.checkConnect));
+            }
+        });
+    }
+
     private void init() {
 
+        dataService = APIService.getService();
         //setup list search adapter
         LAT_LNG_BOUNDS = new LatLngBounds(
                 new LatLng(-40, -168), new LatLng(71, 136));
@@ -121,11 +160,12 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE
                         || actionId == EditorInfo.IME_ACTION_SEARCH
-                        || event.getAction() == KeyEvent.ACTION_DOWN
-                        || event.getAction() == KeyEvent.KEYCODE_ENTER) {
+                        || actionId ==EditorInfo.IME_ACTION_NEXT
+                       ) {
 
                     if (mGoogleApiClient.isConnected()) {
                         searchLocation(binding.etSearch.getText().toString().trim());
+                        Common.hideSoftInput(getActivity());
                     }
 
                 }
@@ -156,6 +196,22 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
             }
         });
 
+        binding.btnAcvite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.cdlPickupme.setVisibility(View.GONE);
+                binding.cdlInfomation.setVisibility(View.VISIBLE);
+                binding.tvNamePickupInfo.setText(locationPickUp.getNameLocation());
+                binding.tvNameDestinationInfo.setText(locationDes.getNameLocation());
+                destinationLng = new LatLng(locationDes.getLat(), locationDes.getLogt());
+                pickUpLng = new LatLng(locationPickUp.getLat(), locationDes.getLogt());
+                Log.d("BBB", "onClick: "+destinationLng+"/"+pickUpLng);
+                distance = Common.getDistance(destinationLng, pickUpLng)/1000;
+                binding.tvDistanceInfo.setText(getString(R.string.distance, distance));
+
+            }
+        });
+
 
     }
 
@@ -164,6 +220,7 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
 
         binding.tvTitle.setText(getString(R.string.wherePickUp));
         binding.etSearch.setText(locationPickUp.getNameLocation());
+        binding.etSearch.setFocusable(true);
         setStateBottomSheet("up");
         locationAdapter.setPickupLng(new LatLng(locationDes.getLat(), locationDes.getLogt()));
         locationAdapter.clearList();
@@ -204,10 +261,23 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
         locationAdapter.setOnItemClickedListener(new ItemLocationAdapter.OnItemClickedListener() {
             @Override
             public void onItemClick(int postion, View v) {
-                setStateBottomSheet2("down");
-                binding.cdlPickupme.setVisibility(View.VISIBLE);
-                locationDes = locationAdapter.getItem(postion);
-                getAddress(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                if(customPickup==false){
+                    setStateBottomSheet2("down");
+                    binding.cdlPickupme.setVisibility(View.VISIBLE);
+                    locationDes = locationAdapter.getItem(postion);
+                    getAddress(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                }else {
+
+                    setStateBottomSheet2("down");
+                    binding.cdlPickupme.setVisibility(View.VISIBLE);
+                    locationPickUp = locationAdapter.getItem(postion);
+                    binding.tvNamePickup.setText(locationPickUp.getNameLocation());
+                    binding.tvNamePickupDetail.setText(locationPickUp.getNameDetailLocation());
+                    zoomTarget(locationPickUp.getLat(), locationPickUp.getLogt());
+
+
+                }
+
             }
         });
 
@@ -227,7 +297,7 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-        if (getActivity() != null && customPickup==false) {
+        if (getActivity() != null && customPickup == false) {
             mLastLocation = location;
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             zoomTarget(latLng.latitude, latLng.longitude);
@@ -316,8 +386,6 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
         }
     }
 
-
-
     //All take name locationDes from lat and logt
     public void getAddress(double lat, double lng) {
         Geocoder geocoder = new Geocoder(
@@ -329,7 +397,8 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
             String[] names = nameDetail.split(",");
 
             locationPickUp.setLogt(mLastLocation.getLongitude());
-            locationPickUp.setLogt(mLastLocation.getLatitude());
+            locationPickUp.setLat(mLastLocation.getLatitude());
+
             locationPickUp.setNameLocation(names[0]+","+names[1]);
             locationPickUp.setNameDetailLocation(nameDetail);
 
@@ -349,16 +418,24 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
 
     @Override
     public boolean onBackPressed() {
-        Log.d("BBB", "onBackPressed: "+customPickup);
         if(locationDes.getNameLocation() != null && customPickup == true){
             setStateBottomSheet2("down");
             binding.cdlPickupme.setVisibility(View.VISIBLE);
             customPickup = false;
-        }else  if(locationDes.getNameLocation() != null ){
+        }else if(locationDes.getNameLocation() != null && distance != 0){
+            distance = 0;
+            setStateBottomSheet2("down");
+            binding.cdlPickupme.setVisibility(View.VISIBLE);
+            binding.cdlInfomation.setVisibility(View.GONE);
+            customPickup = false;
+        } else  if(locationDes.getNameLocation() != null ){
             setStateBottomSheet("down");
             binding.etSearch.setText("");
             binding.cdlPickupme.setVisibility(View.GONE);
+            locationAdapter.clearList();
+            locationAdapter.notifyDataSetChanged();
         }
+        Log.d("BBB", "onBackPressed: "+distance);
         return true;
     }
 }

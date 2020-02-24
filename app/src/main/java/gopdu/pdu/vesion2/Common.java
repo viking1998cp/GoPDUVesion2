@@ -9,6 +9,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.android.gms.common.util.Strings;
@@ -126,13 +129,23 @@ public class Common {
         return p1;
     }
 
-    public static int convertToPx(int dp) {
-        // Get the screen's density scale
-        final float scale = GoPDUApplication.getInstance().getResources().getDisplayMetrics().density;
-        // Convert the dps to pixels, based on density scale
-        return (int) (dp * scale + 0.5f);
-    }
+    public static void hideSoftInput(Activity activity) {
+        try {
+            if (activity == null || activity.isFinishing()) return;
+            Window window = activity.getWindow();
+            if (window == null) return;
+            View view = window.getCurrentFocus();
+            //give decorView a chance
+            if (view == null) view = window.getDecorView();
+            if (view == null) return;
 
+            InputMethodManager imm = (InputMethodManager) activity.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm == null || !imm.isActive()) return;
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

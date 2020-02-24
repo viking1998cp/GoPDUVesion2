@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/margin10dp"
+        android:weightSum="10">
+        <ImageView
+            android:id="@+id/imvService"
+            android:padding="@dimen/padding5dp"
+            android:layout_width="@dimen/width0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:src="@drawable/ic_bike"
+            />
+        <TextView
+            android:id="@+id/tvService"
+            android:layout_marginLeft="@dimen/margin8dp"
+            style="@style/textLocation"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</layout>

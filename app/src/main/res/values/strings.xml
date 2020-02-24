@@ -53,6 +53,10 @@
     <string name="title_programfile">Tài khoản</string>
     <string name="pickupHere">Đón tôi ở đây</string>
     <string name="backagain">Nhấn nút back thêm lần nữa để thoát khỏi ứng dụng</string>
-    <string name="wherePickUp">Chúng tôi đón bạn ở đâu</string>
+    <string name="wherePickUp">Chúng tôi đón bạn ở đâu ?</string>
+    <string name="destination">Điểm đến</string>
+    <string name="pickup">Điểm đón</string>
+    <string name="book">Đặt chuyến</string>
+    <string name="cash">Tiền mặt: %.1f</string>
 
 </resources>

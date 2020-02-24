@@ -202,7 +202,6 @@ public class ItemLocationAdapter extends RecyclerView.Adapter<ItemLocationAdapte
         holder.binding.tvName.setText(location.getNameLocation());
         holder.binding.tvNameDetail.setText(location.getNameDetailLocation());
         float distance = Common.getDistance(pickupLng, new LatLng(location.getLat(), location.getLogt()))/1000;
-        Log.d("BBB", "onBindViewHolder: "+distance);
         holder.binding.tvDistance.setText(GoPDUApplication.getInstance().getString(R.string.distance, distance));
     }
 

@@ -57,6 +57,6 @@
     <string name="destination">Điểm đến</string>
     <string name="pickup">Điểm đón</string>
     <string name="book">Đặt chuyến</string>
-    <string name="cash">Tiền mặt: %.1f</string>
+    <string name="cash">Tiền mặt: %1$d</string>
 
 </resources>

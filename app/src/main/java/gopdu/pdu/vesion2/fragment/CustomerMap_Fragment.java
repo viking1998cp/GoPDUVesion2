@@ -6,14 +6,13 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -33,15 +33,16 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.compat.AutocompleteFilter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -65,22 +66,44 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
     private GoogleMap mMap;
     private FragmentCustomerMapBinding binding;
     private GoogleApiClient mGoogleApiClient;
+    //request old location
     private Location mLastLocation;
     private LocationRequest mLocationRequest;
+
+    //Adapter location search view
     private ItemLocationAdapter locationAdapter;
+
+    //Latlng destination and pickup location
     private LatLng destinationLng;
     private LatLng pickUpLng;
+
+    //Object location
     private gopdu.pdu.vesion2.object.Location locationDes;
     private gopdu.pdu.vesion2.object.Location locationPickUp;
+
+    //Check custom pickup location
     private boolean customPickup;
+
+    //View search location
     private View bottomSheet;
     private BottomSheetBehavior<View> behavior;
-    private  LatLngBounds LAT_LNG_BOUNDS;
+
+    //Set up adapter location search
+    private LatLngBounds LAT_LNG_BOUNDS;
     private AutocompleteFilter autocompleteFilte;
+
+    //Service
     private DataService dataService;
     private ArrayList<Service> services;
     private ItemServiceAdapter serviceAdapter;
     private float distance = 0;
+    private int price;
+
+    //Marker
+    private Marker pickUpMarker;
+    private Marker destinationMarker;
+    private boolean doubleBackToExitPressedOnce = false;
+
 
     @Nullable
     @Override
@@ -114,7 +137,7 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
         getService.enqueue(new Callback<ArrayList<Service>>() {
             @Override
             public void onResponse(Call<ArrayList<Service>> call, Response<ArrayList<Service>> response) {
-                if(response.body() != null && response.body().size()>0){
+                if (response.body() != null && response.body().size() > 0) {
                     services.addAll(response.body());
                     serviceAdapter.notifyDataSetChanged();
                 }
@@ -122,7 +145,6 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
 
             @Override
             public void onFailure(Call<ArrayList<Service>> call, Throwable t) {
-                Log.d("BBB", "onFailure: "+t.getMessage());
                 Common.ShowToastShort(getString(R.string.checkConnect));
             }
         });
@@ -160,8 +182,8 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE
                         || actionId == EditorInfo.IME_ACTION_SEARCH
-                        || actionId ==EditorInfo.IME_ACTION_NEXT
-                       ) {
+                        || actionId == EditorInfo.IME_ACTION_NEXT
+                ) {
 
                     if (mGoogleApiClient.isConnected()) {
                         searchLocation(binding.etSearch.getText().toString().trim());
@@ -204,15 +226,48 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
                 binding.tvNamePickupInfo.setText(locationPickUp.getNameLocation());
                 binding.tvNameDestinationInfo.setText(locationDes.getNameLocation());
                 destinationLng = new LatLng(locationDes.getLat(), locationDes.getLogt());
-                pickUpLng = new LatLng(locationPickUp.getLat(), locationDes.getLogt());
-                Log.d("BBB", "onClick: "+destinationLng+"/"+pickUpLng);
-                distance = Common.getDistance(destinationLng, pickUpLng)/1000;
+                pickUpLng = new LatLng(locationPickUp.getLat(), locationPickUp.getLogt());
+                Log.d("BBB", "onClick: " + destinationLng + "/" + pickUpLng);
+                distance = Common.getDistance(destinationLng, pickUpLng) / 1000;
                 binding.tvDistanceInfo.setText(getString(R.string.distance, distance));
+                getPrice(services.get(0).getPrice());
+                customPickup = false;
+
+            }
+        });
+
+        binding.viewPagerService.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Service service = services.get(position);
+                getPrice(service.getPrice());
+
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
             }
         });
 
 
+    }
+
+    //show price for travel
+    private void getPrice(int price) {
+        int cash = Math.round((distance*price)/1000) *1000;
+        if(cash==0){
+            this.price =price;
+        }else {
+            this.price = cash;
+        }
+        binding.tvPriceInfo.setText(getString(R.string.cash, this.price));
     }
 
     //If wan't custom pickup location clear history search
@@ -252,7 +307,7 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
     private void setUpListLocation() {
 
         locationAdapter = new ItemLocationAdapter(mGoogleApiClient,
-                LAT_LNG_BOUNDS, autocompleteFilte,new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()));
+                LAT_LNG_BOUNDS, autocompleteFilte, new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()));
 
         binding.rclDes.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         binding.rclDes.setAdapter(locationAdapter);
@@ -261,21 +316,28 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
         locationAdapter.setOnItemClickedListener(new ItemLocationAdapter.OnItemClickedListener() {
             @Override
             public void onItemClick(int postion, View v) {
-                if(customPickup==false){
+                if (customPickup == false) {
+                    if (destinationMarker != null) {
+                        destinationMarker.remove();
+                    }
                     setStateBottomSheet2("down");
                     binding.cdlPickupme.setVisibility(View.VISIBLE);
                     locationDes = locationAdapter.getItem(postion);
                     getAddress(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                }else {
-
+                    destinationMarker = addMarker(locationDes.getLat(), locationDes.getLogt(), R.mipmap.ic_pickup, getString(R.string.destination));
+                    zoomTarget(locationDes.getLat(), locationDes.getLogt());
+                } else {
+                    if (pickUpMarker != null) {
+                        pickUpMarker.remove();
+                    }
                     setStateBottomSheet2("down");
                     binding.cdlPickupme.setVisibility(View.VISIBLE);
                     locationPickUp = locationAdapter.getItem(postion);
                     binding.tvNamePickup.setText(locationPickUp.getNameLocation());
                     binding.tvNamePickupDetail.setText(locationPickUp.getNameDetailLocation());
                     zoomTarget(locationPickUp.getLat(), locationPickUp.getLogt());
-
-
+                    pickUpMarker = addMarker(locationPickUp.getLat(), locationPickUp.getLogt(), R.mipmap.ic_pickup, getString(R.string.pickupHere));
+                    zoomTarget(locationPickUp.getLat(), locationPickUp.getLogt());
                 }
 
             }
@@ -297,13 +359,12 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-        if (getActivity() != null && customPickup == false) {
+        if (getActivity() != null && customPickup == false && locationDes == null) {
             mLastLocation = location;
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            zoomTarget(latLng.latitude, latLng.longitude);
             zoomTarget(location.getLatitude(), location.getLongitude());
-            addMarker(location.getLatitude(), location.getLongitude());
-            if(locationAdapter == null){
+            zoomTarget(location.getLatitude(), location.getLongitude());
+            pickUpMarker = addMarker(location.getLatitude(), location.getLongitude(), R.mipmap.ic_pickup, getString(R.string.pickupHere));
+            if (locationAdapter == null) {
                 setUpListLocation();
             }
         }
@@ -356,15 +417,10 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
         }
     }
 
-    private void addMarker(double lat, double lng) {
-        try {
-            mMap.clear();
-           /* googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
-                    .icon(BitmapDescriptorFactory
-                            .fromResource(R.drawable.ic_location_on_blue_24dp)));*/
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private Marker addMarker(double lat, double lng, int idIcon, String title) {
+        return mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
+                .icon(BitmapDescriptorFactory
+                        .fromResource(idIcon)).title(title));
     }
 
     //Setup state bottomsheet
@@ -377,7 +433,7 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
         }
     }
 
-    private void setStateBottomSheet2(String state){
+    private void setStateBottomSheet2(String state) {
         behavior.setPeekHeight(0);
         if (state == "up" && customPickup) {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -399,7 +455,7 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
             locationPickUp.setLogt(mLastLocation.getLongitude());
             locationPickUp.setLat(mLastLocation.getLatitude());
 
-            locationPickUp.setNameLocation(names[0]+","+names[1]);
+            locationPickUp.setNameLocation(names[0] + "," + names[1]);
             locationPickUp.setNameDetailLocation(nameDetail);
 
             binding.tvNamePickup.setText(locationPickUp.getNameLocation());
@@ -418,24 +474,40 @@ public class CustomerMap_Fragment extends Fragment implements OnMapReadyCallback
 
     @Override
     public boolean onBackPressed() {
-        if(locationDes.getNameLocation() != null && customPickup == true){
+        if (locationDes != null && customPickup == true) {
             setStateBottomSheet2("down");
             binding.cdlPickupme.setVisibility(View.VISIBLE);
             customPickup = false;
-        }else if(locationDes.getNameLocation() != null && distance != 0){
+        } else if (locationDes != null && distance != 0) {
             distance = 0;
             setStateBottomSheet2("down");
             binding.cdlPickupme.setVisibility(View.VISIBLE);
             binding.cdlInfomation.setVisibility(View.GONE);
             customPickup = false;
-        } else  if(locationDes.getNameLocation() != null ){
+        } else if (locationDes != null && !doubleBackToExitPressedOnce) {
             setStateBottomSheet("down");
             binding.etSearch.setText("");
             binding.cdlPickupme.setVisibility(View.GONE);
             locationAdapter.clearList();
             locationAdapter.notifyDataSetChanged();
+
+            this.doubleBackToExitPressedOnce = true;
+            Common.ShowToastShort(getString(R.string.backagain));
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
+        }else {
+            if (doubleBackToExitPressedOnce) {
+                getActivity().finish();
+            }
         }
-        Log.d("BBB", "onBackPressed: "+distance);
         return true;
     }
+
+
 }

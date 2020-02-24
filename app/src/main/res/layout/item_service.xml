@@ -9,6 +9,7 @@
         android:layout_margin="@dimen/margin10dp"
         android:weightSum="10">
         <ImageView
+            android:layout_gravity="center"
             android:id="@+id/imvService"
             android:padding="@dimen/padding5dp"
             android:layout_width="@dimen/width0dp"

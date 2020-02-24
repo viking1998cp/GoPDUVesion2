@@ -59,7 +59,7 @@
                            android:layout_width="@dimen/width0dp"
                            android:layout_height="wrap_content"
                            android:layout_weight="1"
-                           android:src="@drawable/ic_location_on_green_24dp"/>
+                           android:src="@drawable/ic_location_on_blue_24dp"/>
 
                        <EditText
                            android:id="@+id/etSearch"
@@ -356,7 +356,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/fontMedium"
+                            android:textSize="@dimen/fontMediumSmall"
                             android:gravity="center"/>
 
                     </LinearLayout>

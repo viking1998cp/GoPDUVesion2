@@ -1,6 +1,7 @@
 package gopdu.pdu.vesion2;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.location.Address;
@@ -9,13 +10,19 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
@@ -25,7 +32,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class Common {
-
+    public  static LatLngBounds  LAT_LNG_BOUNDS = new LatLngBounds(
+                new LatLng(-40, -168), new LatLng(71, 136));
+    //bien luu Activity hien tai
+    public static Application Old_Activity = new Application();
 
     //date now
     public static String getNgayHienTai() {
@@ -39,7 +49,9 @@ public class Common {
             msg = "Có lỗi xảy ra, vui lòng kểm tra kết nối internet";
         }
         try {
-            Toast.makeText(GoPDUApplication.getInstance(), msg, Toast.LENGTH_LONG).show();
+            Toast toast = Toast.makeText(GoPDUApplication.getInstance(), msg, Toast.LENGTH_LONG);
+            centerText(toast.getView());
+            toast.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,9 +63,23 @@ public class Common {
             msg = "Có lỗi xảy ra, vui lòng kểm tra kết nối internet";
         }
         try {
-            Toast.makeText(GoPDUApplication.getInstance(), msg, Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(GoPDUApplication.getInstance(), msg, Toast.LENGTH_SHORT);
+            centerText(toast.getView());
+            toast.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    static void centerText(View view) {
+        if( view instanceof TextView){
+            ((TextView) view).setGravity(Gravity.CENTER);
+        }else if( view instanceof ViewGroup){
+            ViewGroup group = (ViewGroup) view;
+            int n = group.getChildCount();
+            for( int i = 0; i<n; i++ ){
+                centerText(group.getChildAt(i));
+            }
         }
     }
 
@@ -146,6 +172,7 @@ public class Common {
             e.printStackTrace();
         }
     }
+
 
 
 

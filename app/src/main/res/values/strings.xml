@@ -20,8 +20,6 @@
     <string name="errorPhone">Không được để trống số điện thoại</string>
     <string name="exitsAccount">Đã tồn tại tài khoản này trên hệ thống</string>
     <string name="checkConnect">Vui lòng kiểm tra lại kết nối mạng</string>
-    <string name="dialog_thongbao">Thông báo</string>
-    <string name="dialog_title_close">Đóng</string>
     <string name="otpEmpty">Bạn chưa nhập đủ mã OTP</string>
     <string name="successLogin">Đăng nhập thành công</string>
     <string name="otpError">Sai mã xác thực vui lòng kiểm tra lại</string>
@@ -33,6 +31,8 @@
     <string name="notExitsAccount">Chưa tồn tại tài khoản vui lòng đăng kí và đăng nhập lại</string>
     <string name="toast_msg_no_support">Thiết bị không hỗ trợ phần mềm</string>
     <string name="toast_msg_setup_service_google">Dịch vụ Google play đã được cài đặt</string>
+    <string name="dialog_thongbao">Thông báo</string>
+    <string name="dialog_title_close">Đóng</string>
 
     //Active
     <string name="Comfirm">Xác nhận</string>
@@ -58,5 +58,10 @@
     <string name="pickup">Điểm đón</string>
     <string name="book">Đặt chuyến</string>
     <string name="cash">Tiền mặt: %1$d</string>
+    <string name="down">down</string>
+    <string name="up">up</string>
+    <string name="country">VN</string>
+    <string name="birthDateHint">Ngày sinh</string>
+    <string name="toast_message_not_network_server">Vui lòng kiểm tra lại kết nối mạng</string>
 
 </resources>

@@ -3,6 +3,8 @@ package gopdu.pdu.vesion2.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,9 +28,11 @@ import java.util.concurrent.TimeUnit;
 import gopdu.pdu.vesion2.Common;
 import gopdu.pdu.vesion2.object.Customer;
 import gopdu.pdu.vesion2.R;
+import gopdu.pdu.vesion2.object.ServerResponse;
 import gopdu.pdu.vesion2.service.APIService;
 import gopdu.pdu.vesion2.service.DataService;
 import gopdu.pdu.vesion2.databinding.ActivityComfirmOtpBinding;
+import gopdu.pdu.vesion2.viewmodel.RegisterAccountViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +45,8 @@ public class ComfirmOtpActivity extends AppCompatActivity {
     private String VerifyCationId;
     private DataService dataService;
     private int timer = 60;
+    private String from;
+    private RegisterAccountViewModel registerAccountModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +55,7 @@ public class ComfirmOtpActivity extends AppCompatActivity {
         init();
         ActionToolbar();
         setOnClick();
-//        SendVerifyCode(customer.getNumberphone());
+        SendVerifyCode(customer.getNumberphone());
         setTimerOTP();
     }
 
@@ -102,12 +108,16 @@ public class ComfirmOtpActivity extends AppCompatActivity {
 
     private void init() {
 
+        registerAccountModel = ViewModelProviders.of(this).get(RegisterAccountViewModel.class);
         mAuth = FirebaseAuth.getInstance();
         if(getIntent().getSerializableExtra("Customer") != null) {
             customer = (Customer) getIntent().getSerializableExtra("Customer");
         }
         binding.tvHelper.setText(getString(R.string.helperActivityOTP, customer.getNumberphone()));
         dataService = APIService.getService();
+        if(getIntent() != null){
+            from = getIntent().getStringExtra("from");
+        }
 
     }
 
@@ -131,7 +141,12 @@ public class ComfirmOtpActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    insertAccount();
+                    if(from.equals("Register")){
+                        insertAccount();
+                    }else {
+                        Common.ShowToastShort(getString(R.string.successLogin));
+                    }
+
                     Intent intent = new Intent(ComfirmOtpActivity.this,CustomerUseMainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -151,24 +166,17 @@ public class ComfirmOtpActivity extends AppCompatActivity {
         param.put("numberphone", customer.getNumberphone());
         param.put("email", customer.getEmail());
         param.put("birthDate", customer.getBirthDate());
-        retrofit2.Call<String> insertAccount = dataService.registerAccount(param);
-
-        insertAccount.enqueue(new Callback<String>() {
+        registerAccountModel.CheckExitsAccount(param).observe(this, new Observer<ServerResponse>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if(response != null){
-                    if(response.body().equals("Register success")){
-                        Common.ShowToastShort(getString(R.string.registerSuccess));
+            public void onChanged(ServerResponse serverResponse) {
+                if(serverResponse != null){
+                    if(serverResponse.getSuccess()){
+                        Common.ShowToastShort(serverResponse.getMessenger());
 //                        Intent intent = new Intent(ComfirmOtpActivity.this, CustomerUseMainActivity.class);
                     }
                 }else {
                     Common.ShowToastShort(getString(R.string.checkConnect));
                 }
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-
             }
         });
     }

@@ -41,7 +41,6 @@ public class CustomerUseMainActivity extends AppCompatActivity {
         binding.navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
                 Fragment fragment;
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_gifts:
@@ -79,20 +78,7 @@ public class CustomerUseMainActivity extends AppCompatActivity {
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (getSupportFragmentManager().findFragmentByTag("MyFragment") != null)
-            getSupportFragmentManager().findFragmentByTag("MyFragment").setRetainInstance(true);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (getSupportFragmentManager().findFragmentByTag("MyFragment") != null)
-            getSupportFragmentManager().findFragmentByTag("MyFragment").getRetainInstance();
-    }
+    
 
     @Override
     public void onBackPressed() {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <dimen name="textBigsize">30sp</dimen>
     <dimen name="buttonHeightMain">70dp</dimen>
     <dimen name="paddingMain" >40dp</dimen>
@@ -71,4 +72,15 @@
     <dimen name="margin60dp">60dp</dimen>
     <dimen name="lineHeightBig">100dp</dimen>
 
+    <dimen name="margin105dp">105dp</dimen>
+    <dimen name="padding40dp">40dp</dimen>
+    <dimen name="padding30dp">30dp</dimen>
+
+    <dimen name="peekHeightMenu">250dp</dimen>
+    <dimen name="peekHeightMenuActivity">400</dimen>
+
+    <dimen name="buttonSearchHeight">40dp</dimen>
+    <dimen name="sizeLogoSplash">200dp</dimen>
+    <dimen name="menuSize">55dp</dimen>
+    <dimen name="serviceHeight">70dp</dimen>
 </resources>

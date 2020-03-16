@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:visibility="gone"
+        android:id="@+id/cdlInfomation"
+        android:layout_marginBottom="@dimen/menuSize"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPagerService"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/serviceHeight" />
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGray" />
+
+                <LinearLayout
+                    android:padding="@dimen/padding10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:padding="@dimen/padding5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_circle"
+                        android:src="@drawable/ic_pickupme"
+                        />
+                    <LinearLayout
+                        android:layout_margin="@dimen/margin10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="9"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/textLocationTitle"
+                            android:text="@string/pickupHere"
+                            />
+
+                        <TextView
+                            android:id="@+id/tvNamePickupInfo"
+                            style="@style/textLocation"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGray" />
+
+                <LinearLayout
+                    android:padding="@dimen/padding10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:padding="@dimen/padding5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_destination"
+                        />
+                    <LinearLayout
+                        android:layout_margin="@dimen/margin10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="9"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:text="@string/destination"
+                                style="@style/textLocationTitle"/>
+                            <TextView
+                                android:text=" - "
+                                style="@style/textLocationTitle"/>
+
+                            <TextView
+                                android:id="@+id/tvDistanceInfo"
+                                style="@style/textLocationTitle"/>"
+
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvNameDestinationInfo"
+                            style="@style/textLocation"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGray" />
+
+                <LinearLayout
+                    android:padding="@dimen/padding10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:padding="@dimen/padding5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_money"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvPriceInfo"
+                        android:layout_marginLeft="@dimen/margin16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/fontMediumSmall"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGray" />
+
+
+                <Button
+                    android:id="@+id/btnCall"
+                    android:text="@string/book"
+                    style="@style/button.Login"
+                    android:layout_margin="@dimen/margin8dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

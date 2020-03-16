@@ -3,7 +3,7 @@ package gopdu.pdu.vesion2.object;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Service {
+public class Service  {
     @SerializedName("id")
     @Expose
     private int id;

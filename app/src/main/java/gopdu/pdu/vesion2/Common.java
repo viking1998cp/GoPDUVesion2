@@ -1,5 +1,7 @@
 package gopdu.pdu.vesion2;
 
+import android.animation.TypeEvaluator;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -8,21 +10,27 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.util.Log;
+import android.util.Property;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewAnimator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
@@ -173,7 +181,10 @@ public class Common {
         }
     }
 
-
+    //animation visible view
+    public static Animation animationVisible() {
+        return  AnimationUtils.loadAnimation(GoPDUApplication.getInstance(), R.anim.slide_up);
+    }
 
 
 }

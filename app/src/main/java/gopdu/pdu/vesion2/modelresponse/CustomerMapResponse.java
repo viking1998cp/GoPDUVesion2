@@ -26,4 +26,6 @@ public interface CustomerMapResponse {
     void backToPickUpFromCustomPickUp();
 
     void backToDestination();
+
+    void pushInfomationTravel(String key);
 }

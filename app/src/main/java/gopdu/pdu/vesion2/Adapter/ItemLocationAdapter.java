@@ -1,6 +1,6 @@
 package gopdu.pdu.vesion2.adapter;
 
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.text.style.CharacterStyle;
 import android.text.style.StyleSpan;
@@ -16,26 +16,19 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.compat.AutocompleteFilter;
 import com.google.android.libraries.places.compat.AutocompletePrediction;
-import com.google.android.libraries.places.compat.AutocompletePredictionBuffer;
 import com.google.android.libraries.places.compat.AutocompletePredictionBufferResponse;
 import com.google.android.libraries.places.compat.GeoDataClient;
-import com.google.android.libraries.places.compat.Place;
-import com.google.android.libraries.places.compat.PlaceBuffer;
-import com.google.android.libraries.places.compat.PlaceBufferResponse;
 import com.google.android.libraries.places.compat.Places;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
 import gopdu.pdu.vesion2.Common;
 import gopdu.pdu.vesion2.GoPDUApplication;
@@ -53,9 +46,7 @@ public class ItemLocationAdapter extends RecyclerView.Adapter<ItemLocationAdapte
 
     private LatLngBounds mBounds;
 
-    private LatLng pickupLng;
-
-    private int layout;
+    private LatLng fromLng;
 
     private AutocompleteFilter mPlaceFilter;
 
@@ -63,12 +54,13 @@ public class ItemLocationAdapter extends RecyclerView.Adapter<ItemLocationAdapte
 
 
     public ItemLocationAdapter(GoogleApiClient googleApiClient,
-                               LatLngBounds bounds, AutocompleteFilter filter, LatLng pickupLng) {
+                               LatLngBounds bounds, AutocompleteFilter filter, LatLng fromLng) {
 
         this.mGoogleApiClient = googleApiClient;
         this.mBounds = bounds;
         this.mPlaceFilter = filter;
-        this.pickupLng = pickupLng;
+        this.fromLng = fromLng;
+
 
     }
 
@@ -89,17 +81,16 @@ public class ItemLocationAdapter extends RecyclerView.Adapter<ItemLocationAdapte
         mBounds = bounds;
     }
 
-    public LatLng getPickupLng() {
-        return pickupLng;
+    public LatLng getFromLng() {
+        return fromLng;
     }
 
-    public void setPickupLng(LatLng pickupLng) {
-        this.pickupLng = pickupLng;
+    public void setFromLng(LatLng fromLng) {
+        this.fromLng = fromLng;
     }
 
     @Override
     public Filter getFilter() {
-
         Filter filter = new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
@@ -128,7 +119,9 @@ public class ItemLocationAdapter extends RecyclerView.Adapter<ItemLocationAdapte
                     // The API did not return any results, invalidate the data set.
                     //notifyDataSetInvalidated();
                 }
+
             }
+
         };
         return filter;
     }
@@ -159,7 +152,7 @@ public class ItemLocationAdapter extends RecyclerView.Adapter<ItemLocationAdapte
                         AutocompletePrediction prediction = iterator.next();
 
                         LatLng destination = Common.getLocationFromAddress(prediction.getSecondaryText(STYLE_BOLD).toString());
-                        float distance = Common.getDistance(pickupLng, destination)/1000;
+                        float distance = Common.getDistance(fromLng, destination)/1000;
                         if(distance<=90.0){
                             final Location location = new Location();
                             location.setNameLocation(prediction.getPrimaryText(STYLE_BOLD).toString());
@@ -201,7 +194,7 @@ public class ItemLocationAdapter extends RecyclerView.Adapter<ItemLocationAdapte
         Location location = getItem(position);
         holder.binding.tvName.setText(location.getNameLocation());
         holder.binding.tvNameDetail.setText(location.getNameDetailLocation());
-        float distance = Common.getDistance(pickupLng, new LatLng(location.getLat(), location.getLogt()))/1000;
+        float distance = Common.getDistance(fromLng, new LatLng(location.getLat(), location.getLogt()))/1000;
         holder.binding.tvDistance.setText(GoPDUApplication.getInstance().getString(R.string.distance, distance));
     }
 

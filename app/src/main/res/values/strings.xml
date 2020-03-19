@@ -63,5 +63,6 @@
     <string name="country">VN</string>
     <string name="birthDateHint">Ngày sinh</string>
     <string name="toast_message_not_network_server">Vui lòng kiểm tra lại kết nối mạng</string>
+    <string name="click_again_exits">Nhất quay lại một lần nữa để thoát ứng dụng</string>
 
 </resources>

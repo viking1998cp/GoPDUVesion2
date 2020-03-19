@@ -75,7 +75,16 @@ dependencies {
     implementation 'net.skoumal.fragmentback:fragment-back:0.2.3'
 
     api 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.github.mohammadatif:Animatoo:master'
 
+    //loader
+    //loader
+    implementation 'com.github.jorgecastilloprz:fillableloaders:1.03@aar'
+    implementation 'com.jaredrummler:animated-svg-view:1.0.6'
+
+    def lottieVersion = "3.0.7"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+    implementation 'com.koushikdutta.ion:ion:2.1.6'
 
 }
 

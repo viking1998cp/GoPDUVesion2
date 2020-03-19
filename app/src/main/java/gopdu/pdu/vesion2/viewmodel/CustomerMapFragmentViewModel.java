@@ -9,14 +9,14 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import gopdu.pdu.vesion2.Common;
 import gopdu.pdu.vesion2.GoPDUApplication;
-import gopdu.pdu.vesion2.adapter.ItemLocationAdapter;
+import gopdu.pdu.vesion2.R;
 import gopdu.pdu.vesion2.modelresponse.CustomerMapResponse;
 import gopdu.pdu.vesion2.object.Location;
 
@@ -78,7 +78,7 @@ public class CustomerMapFragmentViewModel {
         }
     }
 
-
+    private long back_pressed;
     public void backOnCick(boolean customPickup, Location locationDes, float distance) {
         if (locationDes != null && customPickup == true) {
             callback.backToPickUpFromCustomPickUp();
@@ -88,7 +88,20 @@ public class CustomerMapFragmentViewModel {
         } else if (locationDes != null) {
             callback.backToDestination();
         }else {
-            callback.backUpFinishApp();
+            if (back_pressed + 2000 > System.currentTimeMillis()){
+                callback.backUpFinishApp();
+            }
+            else{
+               Common.ShowToastShort(
+                        GoPDUApplication.getInstance().getString(R.string.click_again_exits));
+            }
+            back_pressed = System.currentTimeMillis();
         }
     }
+
+
+    public void pushInfomationTravel(String key) {
+        callback.pushInfomationTravel(key);
+    }
+
 }

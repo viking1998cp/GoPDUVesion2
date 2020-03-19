@@ -5,9 +5,7 @@ import android.location.Address;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.model.LatLng;
 
-import gopdu.pdu.vesion2.adapter.ItemLocationAdapter;
 import gopdu.pdu.vesion2.modelresponse.CustomerMapResponse;
 import gopdu.pdu.vesion2.object.Location;
 import gopdu.pdu.vesion2.view.ViewCustomerMapListener;
@@ -92,5 +90,9 @@ public class PresenterCustomerMapFragment implements CustomerMapResponse {
 
     public void reciverBackOnClick(boolean customPickup, Location locationDes, float distance) {
         customerMapViewModel.backOnCick(customPickup, locationDes, distance);
+    }
+
+    public void pushInfomationTravel(String key) {
+        customerMapViewModel.pushInfomationTravel(key);
     }
 }

@@ -20,4 +20,6 @@ public interface ViewCustomerMapListener {
     void backToPickUpFromCustomPickUp();
 
     void backToDestination();
+
+    void pushInfomationTravel(String idDriver);
 }

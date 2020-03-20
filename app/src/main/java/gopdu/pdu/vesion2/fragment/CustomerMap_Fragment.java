@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.arsy.maps_library.MapRadar;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
@@ -44,6 +45,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.compat.AutocompleteFilter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -51,6 +53,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import gopdu.pdu.vesion2.Common;
 import gopdu.pdu.vesion2.GoPDUApplication;
@@ -113,14 +116,18 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
     private FirebaseAuth mAuth;
     private String userID;
 
+
     private boolean requestBoolena = false;
-    private String statusTrip ;
+    private String statusTrip;
 
     //Presenter
     PresenterCustomerMapFragment presenter;
 
     //Loadding
     private ProgressDialog progressDialog;
+
+    //Map radar
+    private MapRadar searchRadar;
 
     @Nullable
     @Override
@@ -155,7 +162,14 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
 
     private void init() {
 
+        //withRadarColors() have two parameters, startColor and tailColor respectively
+        //startColor should start with transparency, here 00 in front of fccd29 indicates fully transparent
+        //tailColor should end with opaqueness, here f in front of fccd29 indicates fully opaque
+
+
         binding.contentInfomation.cdlInfomation.setVisibility(View.GONE);
+        //get data account
+
 
         //set animation
         binding.contentPickup.cdlPickupme.setAnimation(Common.animationVisible());
@@ -266,7 +280,7 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
         binding.contentInfomation.btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                endRide();
+                presenter.reciverEndRide(requestBoolena);
             }
         });
 
@@ -292,10 +306,10 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
 
     //show price for travel
     private void getPrice(int price) {
-        int cash = Math.round((distance*price)/1000) *1000;
-        if(cash==0){
-            this.price =price;
-        }else {
+        int cash = Math.round((distance * price) / 1000) * 1000;
+        if (cash == 0) {
+            this.price = price;
+        } else {
             this.price = cash;
         }
         binding.contentInfomation.tvPriceInfo.setText(getString(R.string.cash, this.price));
@@ -337,7 +351,7 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
     private void setUpListLocation(Location location) {
 
         locationAdapter = new ItemLocationAdapter(mGoogleApiClient,
-                Common.LAT_LNG_BOUNDS, autocompleteFilte, null);
+                Common.LAT_LNG_BOUNDS, autocompleteFilte, new LatLng(location.getLatitude(), location.getLongitude()));
         locationAdapter.setFromLng(new LatLng(location.getLatitude(), location.getLongitude()));
         binding.contentSearch.rclDes.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         binding.contentSearch.rclDes.setAdapter(locationAdapter);
@@ -353,7 +367,6 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
 
 
     }
-
 
 
     private void searchLocation(String keySearch) {
@@ -391,8 +404,8 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(R.integer.requestLocation);
-        mLocationRequest.setFastestInterval(R.integer.requestLocation);
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
@@ -425,7 +438,7 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
     //Setup state bottomsheet
     private void setStateBottomSheet(String state) {
         behavior.setPeekHeight(GoPDUApplication.getInstance().getResources().getDimensionPixelSize(R.dimen.peekHeightMenu));
-        if (state == getString(R.string.up) ) {
+        if (state == getString(R.string.up)) {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         } else if (state == getString(R.string.down)) {
             behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -444,75 +457,10 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
     //planning doing plan ( Đang thực hiện )
     private DatabaseReference driverlocationRef;
     private ValueEventListener driverlocationRefListener;
-    private void endRide() {
-        if (requestBoolena) {
-//            if(statusTrip.equals("moving")){
-//                Toast.makeText(view.getContext(), "Chuyến đi đang thực hiện không thể hủy", Toast.LENGTH_SHORT).show();
-//            }else {
-                radius = 1;
-                requestBoolena = false;
-                if (geoQuery != null) {
-                    geoQuery.removeAllListeners();
-                }
-
-                if (driverFoundId != null) {
-                    DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().child("User").child("Driver").child(driverFoundId).child("customerRequest");
-                    driverRef.removeValue();
-//                    driverlocationRef.removeEventListener(driverlocationRefListener);
-//                    driverHasEndedRef.removeEventListener(driverHasEndedEventListener);
-                    Log.d("BBB", "endRide: " + driverFoundId);
-                    driverFoundId = null;
-                    DatabaseReference customerRef = FirebaseDatabase.getInstance().getReference().child("User").child("Customer").child(userID).child("DriverRequest");
-                    customerRef.removeValue();
-                }
-                if (destinationMarker != null) {
-                    destinationMarker.remove();
-//                    destination = null;
-                }
-                distance = 0;
-//                destination =null;
-
-//                LatLng latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-//                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-//                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-//                tvPrice.setText("0 VND");
-                driverFound = false;
-                radius = 1;
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("customerRequest");
-                GeoFire geoFire = new GeoFire(ref);
-                geoFire.removeLocation(userID);
-
-//                if (pickupMarker != null) {
-//                    pickupMarker.remove();
-//                }
-//                if (driverMarker != null) {
-//                    driverMarker.remove();
-//                }
-                binding.contentInfomation.btnCall.setText("Tìm tài xế");
-//                tvDriverName.setText("");
-//                tvDriverGender.setText("");
-//                tvDriverNumber.setText("");
-//                if(!polylines.isEmpty()){
-//                    erasePolyLines();
-//                }
-//            }
-
-        } else {
-
-            if (driverFound) {
-                return;
-            }
-            requestBoolena = true;
-
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("customerRequest");
-            GeoFire geoFire = new GeoFire(ref);
-            geoFire.setLocation(userID, new GeoLocation(pickUpLng.latitude, pickUpLng.longitude));
-
-            binding.contentInfomation.btnCall.setText("Đang tìm tài xế cho bạn......");
-            pickDriver();
-
-        }
-    }
+//    private void endRide() {
+//
+//
+//    }
 
     private int radius = 0;
     private Boolean driverFound = false;
@@ -528,8 +476,13 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
             @Override
             public void onKeyEntered(final String key, final GeoLocation location) {
 
+                if (driverFound) {
+                    return;
+                }
+
                 if (driverFound == false && requestBoolena) {
                     presenter.pushInfomationTravel(key);
+                    takenInfomationDriver(key);
 
                 }
             }
@@ -559,14 +512,55 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
         });
     }
 
+    //Lấy vị thông tin tài xế
+    private void takenInfomationDriver(String key) {
+        DatabaseReference customerDatabase = FirebaseDatabase.getInstance().getReference().child("User").child("Driver").child(driverFoundId);
+        customerDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+//                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+//                    if (map.get("name") != null) {
+//                        Log.d("BBB", "onChildAdded: " + map.get("name").toString());
+//                        tvDriverName.setText(map.get("name").toString());
+//                    }
+//                    if (map.get("phone") != null) {
+//                        tvDriverNumber.setText(map.get("phone").toString());
+//                    }
+//                    if (map.get("gender") != null) {
+//                        tvDriverGender.setText(map.get("gender").toString());
+//                    }
+//
+//                    int ratingSum = 0;
+//                    int ratingTotal = 0;
+//                    float ratingAvg = 0;
+//                    for (DataSnapshot child : dataSnapshot.child("rating").getChildren()) {
+//                        ratingSum = ratingSum + Integer.parseInt(child.getValue().toString());
+//                        ratingTotal++;
+//                    }
+//                    if (ratingTotal != 0) {
+//                        ratingAvg = ratingSum / ratingAvg;
+//                        ratingBar.setRating(ratingAvg);
+//                    }
+//
+//
+//                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("BBB", "onCancelled: " + databaseError.toString());
+            }
+        });
+
+    }
+
     // back press
     @Override
     public boolean onBackPressed() {
         presenter.reciverBackOnClick(customPickup, locationDes, distance);
         return true;
     }
-
-
 
 
     @Override
@@ -629,9 +623,9 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
         zoomTarget(location.getLatitude(), location.getLongitude());
         pickUpMarker = addMarker(location.getLatitude(), location.getLongitude(), R.mipmap.ic_pickup, getString(R.string.pickupHere));
         mLastLocation = location;
-
-        if(locationAdapter==null && location != null){
-            setUpListLocation(location);
+        Log.d("BBB", "getDefaultMylocation: " + mLastLocation);
+        if (locationAdapter == null && mLastLocation != null && services.size() != 0) {
+            setUpListLocation(mLastLocation);
             progressDialog.dismiss();
 
         }
@@ -655,7 +649,7 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
 
     @Override
     public void backToPickUpFromCustomPickUp() {
-        if(pickUpMarker != null){
+        if (pickUpMarker != null) {
             pickUpMarker.remove();
         }
 
@@ -668,7 +662,7 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
 
     @Override
     public void backToDestination() {
-        if(destinationMarker != null){
+        if (destinationMarker != null) {
             destinationMarker.remove();
         }
         setStateBottomSheet(getString(R.string.down));
@@ -681,9 +675,6 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
 
     @Override
     public void pushInfomationTravel(String idDriver) {
-        if (driverFound) {
-            return;
-        }
 
         driverFound = true;
         driverFoundId = idDriver;
@@ -712,6 +703,90 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
 //                                    pickDriverlocation();
 //                                    getHasRideEnded();
         Log.d("BBB", "onKeyEntered: " + userID);
+    }
+
+    @Override
+    public void startRide() {
+        if (driverFound) {
+            return;
+        }
+        requestBoolena = true;
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("customerRequest");
+        GeoFire geoFire = new GeoFire(ref);
+        geoFire.setLocation(userID, new GeoLocation(pickUpLng.latitude, pickUpLng.longitude));
+
+        binding.contentInfomation.cdlInfomation.setVisibility(View.GONE);
+
+        if (searchRadar == null) {
+            //setUp map radar
+            searchRadar = new MapRadar(mMap, pickUpLng, getContext());
+            searchRadar.withRadarColors(0x00fccd29, 0xfffccd29);
+            searchRadar.withDistance(2000);
+            searchRadar.withOuterCircleStrokeColor(0xfccd29);
+        } else {
+            searchRadar.withLatLng(pickUpLng);
+        }
+
+        searchRadar.startRadarAnimation();
+
+        pickDriver();
+    }
+
+    @Override
+    public void endRide() {
+//            if(statusTrip.equals("moving")){
+//                Toast.makeText(view.getContext(), "Chuyến đi đang thực hiện không thể hủy", Toast.LENGTH_SHORT).show();
+//            }else {
+        radius = 1;
+        requestBoolena = false;
+        if (geoQuery != null) {
+            geoQuery.removeAllListeners();
+        }
+
+        if (driverFoundId != null) {
+            DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().child("User").child("Driver").child(driverFoundId).child("customerRequest");
+            driverRef.removeValue();
+//                    driverlocationRef.removeEventListener(driverlocationRefListener);
+//                    driverHasEndedRef.removeEventListener(driverHasEndedEventListener);
+            Log.d("BBB", "endRide: " + driverFoundId);
+            driverFoundId = null;
+            DatabaseReference customerRef = FirebaseDatabase.getInstance().getReference().child("User").child("Customer").child(userID).child("DriverRequest");
+            customerRef.removeValue();
+        }
+        if (destinationMarker != null) {
+            destinationMarker.remove();
+//                    destination = null;
+        }
+        distance = 0;
+//                destination =null;
+
+//                LatLng latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+//                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+//                tvPrice.setText("0 VND");
+        driverFound = false;
+        radius = 1;
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("customerRequest");
+        GeoFire geoFire = new GeoFire(ref);
+        geoFire.removeLocation(userID);
+
+//                if (pickupMarker != null) {
+//                    pickupMarker.remove();
+//                }
+//                if (driverMarker != null) {
+//                    driverMarker.remove();
+//                }
+        binding.contentInfomation.btnCall.setText("Tìm tài xế");
+//                tvDriverName.setText("");
+//                tvDriverGender.setText("");
+//                tvDriverNumber.setText("");
+//                if(!polylines.isEmpty()){
+//                    erasePolyLines();
+//                }
+//            }
+
+
     }
 
 

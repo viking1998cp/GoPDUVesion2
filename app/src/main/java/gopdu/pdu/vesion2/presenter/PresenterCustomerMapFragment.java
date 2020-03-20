@@ -95,4 +95,19 @@ public class PresenterCustomerMapFragment implements CustomerMapResponse {
     public void pushInfomationTravel(String key) {
         customerMapViewModel.pushInfomationTravel(key);
     }
+
+    @Override
+    public void startRide() {
+        callback.startRide();
+    }
+
+    @Override
+    public void endRide() {
+        callback.endRide();
+    }
+
+    public void reciverEndRide(boolean requestBoolena) {
+        customerMapViewModel.endRide(requestBoolena);
+    }
+
 }

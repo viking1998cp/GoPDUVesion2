@@ -82,9 +82,12 @@ dependencies {
     implementation 'com.github.jorgecastilloprz:fillableloaders:1.03@aar'
     implementation 'com.jaredrummler:animated-svg-view:1.0.6'
 
+    //searching animation
+    implementation 'com.github.aarsy.googlemapsanimations:googlemapsanimations:1.0.5'
+
+    //view animation
     def lottieVersion = "3.0.7"
     implementation "com.airbnb.android:lottie:$lottieVersion"
-    implementation 'com.koushikdutta.ion:ion:2.1.6'
 
 }
 

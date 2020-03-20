@@ -22,4 +22,8 @@ public interface ViewCustomerMapListener {
     void backToDestination();
 
     void pushInfomationTravel(String idDriver);
+
+    void startRide();
+
+    void endRide();
 }

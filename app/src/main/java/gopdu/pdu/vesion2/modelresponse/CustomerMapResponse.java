@@ -28,4 +28,8 @@ public interface CustomerMapResponse {
     void backToDestination();
 
     void pushInfomationTravel(String key);
+
+    void startRide();
+
+    void endRide();
 }

@@ -73,7 +73,7 @@ public class CustomerMapFragmentViewModel {
 
     public void getDefaultMylocation(FragmentActivity activity, boolean customPickup, Location locationDes, android.location.Location location) {
         Log.d("BBB", "getDefaultMylocation: "+activity+"/"+customPickup+"/"+location);
-        if (activity != null && customPickup == false && locationDes.getNameLocation() == null) {
+        if (activity != null && customPickup == false && location != null && locationDes.getNameLocation() == null) {
             callback.getDefaultMylocation(location);
         }
     }
@@ -104,4 +104,12 @@ public class CustomerMapFragmentViewModel {
         callback.pushInfomationTravel(key);
     }
 
+    public void endRide(boolean requestBoolena) {
+        if(requestBoolena){
+            callback.endRide();
+        }else {
+            callback.startRide();
+        }
+
+    }
 }

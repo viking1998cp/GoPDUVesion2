@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.arsy.maps_library.MapRadar;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
@@ -50,6 +52,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -121,7 +125,7 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
     private String statusTrip;
 
     //Presenter
-    PresenterCustomerMapFragment presenter;
+    private PresenterCustomerMapFragment presenter;
 
     //Loadding
     private ProgressDialog progressDialog;
@@ -161,20 +165,13 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
     }
 
     private void init() {
-
-        //withRadarColors() have two parameters, startColor and tailColor respectively
-        //startColor should start with transparency, here 00 in front of fccd29 indicates fully transparent
-        //tailColor should end with opaqueness, here f in front of fccd29 indicates fully opaque
-
-
         binding.contentInfomation.cdlInfomation.setVisibility(View.GONE);
-        //get data account
-
 
         //set animation
         binding.contentPickup.cdlPickupme.setAnimation(Common.animationVisible());
         binding.contentInfomation.cdlInfomation.setAnimation(Common.animationVisible());
         binding.contentSearch.cdlDestination.setAnimation(Common.animationVisible());
+        binding.contentInfomationDriver.cdlInfomationDriver.setAnimation(Common.animationVisible());
 
         //dialog
         progressDialog = new ProgressDialog(getContext());
@@ -469,21 +466,21 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
 
     private void pickDriver() {
         DatabaseReference driverLocation = FirebaseDatabase.getInstance().getReference().child("driversAvailable");
-        GeoFire geoFire = new GeoFire(driverLocation);
+        final GeoFire geoFire = new GeoFire(driverLocation);
         geoQuery = geoFire.queryAtLocation(new GeoLocation(pickUpLng.latitude, pickUpLng.longitude), radius);
         geoQuery.removeAllListeners();
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(final String key, final GeoLocation location) {
-
-                if (driverFound) {
-                    return;
-                }
-
-                if (driverFound == false && requestBoolena) {
-                    presenter.pushInfomationTravel(key);
+                if (driverFound == false && requestBoolena && driverFoundId ==null) {
+                    if (driverFound) {
+                        return;
+                    }
+                    driverFound = true;
+                    driverFoundId = key;
+                    searchRadar.stopRadarAnimation();
+                    presenter.pushInfomationTravel(driverFoundId);
                     takenInfomationDriver(key);
-
                 }
             }
 
@@ -501,6 +498,7 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
             public void onGeoQueryReady() {
                 if (driverFound == false && requestBoolena) {
                     radius++;
+                    Log.d("BBB", "onGeoQueryReady: "+radius);
                     pickDriver();
                 }
             }
@@ -514,37 +512,31 @@ public class CustomerMap_Fragment extends Fragment implements ViewCustomerMapLis
 
     //Lấy vị thông tin tài xế
     private void takenInfomationDriver(String key) {
+        binding.contentInfomationDriver.cdlInfomationDriver.setVisibility(View.VISIBLE);
         DatabaseReference customerDatabase = FirebaseDatabase.getInstance().getReference().child("User").child("Driver").child(driverFoundId);
         customerDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
-//                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-//                    if (map.get("name") != null) {
-//                        Log.d("BBB", "onChildAdded: " + map.get("name").toString());
-//                        tvDriverName.setText(map.get("name").toString());
-//                    }
-//                    if (map.get("phone") != null) {
-//                        tvDriverNumber.setText(map.get("phone").toString());
-//                    }
-//                    if (map.get("gender") != null) {
-//                        tvDriverGender.setText(map.get("gender").toString());
-//                    }
-//
-//                    int ratingSum = 0;
-//                    int ratingTotal = 0;
-//                    float ratingAvg = 0;
-//                    for (DataSnapshot child : dataSnapshot.child("rating").getChildren()) {
-//                        ratingSum = ratingSum + Integer.parseInt(child.getValue().toString());
-//                        ratingTotal++;
-//                    }
-//                    if (ratingTotal != 0) {
-//                        ratingAvg = ratingSum / ratingAvg;
-//                        ratingBar.setRating(ratingAvg);
-//                    }
-//
-//
-//                }
+                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                    Log.d("BBB", "onDataChange: "+map);
+                    if (map.get(getString(R.string.paramName)) != null) {
+                       binding.contentInfomationDriver.tvDrivername.setText(map.get(getString(R.string.paramName)).toString());
+                    }
+
+                    if (map.get(getString(R.string.paramLicenseplate)) != null) {
+                        binding.contentInfomationDriver.tvLicensePlate.setText(map.get(getString(R.string.paramLicenseplate)).toString());
+                    }
+
+                    if (map.get(getString(R.string.paramImv_Driverface)) != null) {
+                        Glide.with(getContext())
+                                .load(map.get(getString(R.string.paramImv_Driverface)))
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(binding.contentInfomationDriver.imvDriverFace);
+                    }
+                    binding.contentInfomationDriver.tvPrice.setText(Common.formatVNĐ(price));
+
+                }
             }
 
             @Override

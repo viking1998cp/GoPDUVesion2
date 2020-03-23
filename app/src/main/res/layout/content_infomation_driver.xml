@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:visibility="gone"
+        android:id="@+id/cdlInfomationDriver"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/margin40dp"
+        >
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_margin="@dimen/margin10dp"
+            android:id="@+id/bottom_sheetDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:behavior_peekHeight="@dimen/peekHeightMenuInfomationDriver"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            android:background="@drawable/background_layout_white"
+
+         >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/padding10dp"
+                android:paddingRight="@dimen/padding10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/margin10dp">
+
+                    <ImageView
+
+                        android:layout_width="@dimen/imvArrow"
+                        android:layout_height="@dimen/imvArrow"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_line" />
+                    <TextView
+                        android:gravity="right"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/width0dp"
+                        android:layout_weight="1"
+                        android:text="Biển số của xe !!"
+                        android:textSize="@dimen/fontSmall"
+                       />
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:weightSum="10"
+                        android:orientation="horizontal">
+
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:padding="@dimen/padding10dp"
+                            android:id="@+id/imvDriverFace"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/imvDriverface"
+                            android:layout_weight="2"
+
+                            />
+                        <LinearLayout
+                            android:layout_width="@dimen/width0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="8">
+
+                            <LinearLayout
+                                android:gravity="center"
+                                android:layout_width="@dimen/width0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="3"
+                                android:layout_weight="2">
+                                <TextView
+                                    android:id="@+id/tvServiceName"
+                                    android:gravity="center_vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/width0dp"
+                                    android:layout_weight="2"
+                                    android:text="GrabCar"
+                                    android:textSize="@dimen/fontSmallBigger"/>
+                                <TextView
+                                    android:id="@+id/tvDrivername"
+                                    android:gravity="center_vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/width0dp"
+                                    android:layout_weight="1"
+                                    android:text="3254235435436"
+                                    android:textSize="@dimen/fontSmall"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:gravity="center"
+                                android:layout_width="@dimen/width0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2">
+
+                                <TextView
+                                    android:id="@+id/tvLicensePlate"
+                                    android:layout_margin="@dimen/margin10dp"
+                                    android:background="@drawable/background_round_white"
+                                    android:textColor="@color/colorBlack"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:text="17b1-42518"
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/fontMedium"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin24dp"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/padding5dp"
+                        android:weightSum="10">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:padding="@dimen/padding5dp"
+                            android:src="@drawable/ic_money" />
+
+
+                        <TextView
+                            android:text="Cash"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/margin16dp"
+                            android:gravity="center"
+                            android:textSize="@dimen/fontMedium" />
+                        <TextView
+                            android:text="VNĐ"
+                            android:layout_width="0dp"
+                            android:layout_weight="4"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/margin16dp"
+                            android:gravity="top|right"
+                            android:textSize="@dimen/fontMedium" />
+                        <TextView
+                            android:id="@+id/tvPrice"
+                            android:textStyle="bold"
+                            android:text="Cash"
+                            android:layout_width="0dp"
+                            android:layout_weight="3"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/margin16dp"
+                            android:gravity="left|center_vertical"
+                            android:textSize="@dimen/fontMedium" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:paddingLeft="@dimen/padding20dp"
+                        android:paddingRight="@dimen/padding20dp"
+                        android:layout_marginTop="@dimen/margin24dp"
+                        android:layout_gravity="center"
+                        android:textAllCaps="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cancel"
+                        android:background="@drawable/background_round_white"
+                        android:layout_marginBottom="@dimen/margin40dp"
+
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

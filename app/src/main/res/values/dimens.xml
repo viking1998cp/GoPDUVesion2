@@ -3,4 +3,8 @@
 
     <dimen name="radius1dp">1dp</dimen>
     <dimen name="imvLogo">64dp</dimen>
+    <dimen name="imvArrow">50dp</dimen>
+    <dimen name="imvDriverface">80dp</dimen>
+    <dimen name="peekHeightMenuInfomationDriver">60dp</dimen>
+
 </resources>

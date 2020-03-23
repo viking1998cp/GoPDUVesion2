@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:visibility="gone"
+        android:layout_marginLeft="@dimen/margin8dp"
+        android:layout_marginRight="@dimen/margin8dp"
+
         android:id="@+id/cdlInfomation"
         android:layout_marginBottom="@dimen/menuSize"
         android:layout_gravity="bottom"
@@ -10,25 +12,19 @@
         android:layout_height="wrap_content"
         >
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
             <LinearLayout
-                android:background="@color/colorWhite"
+                android:padding="@dimen/padding5dp"
+                android:background="@drawable/background_layout_white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/viewPagerService"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/serviceHeight" />
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -68,9 +64,12 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
-                    android:background="@color/colorGray" />
+                    android:background="@color/colorGray"
+                    android:layout_marginRight="@dimen/margin10dp"
+                    android:layout_marginLeft="@dimen/margin10dp"/>
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:weightSum="10"
@@ -116,11 +115,37 @@
                 </LinearLayout>
 
                 <View
+                    android:layout_marginRight="@dimen/margin10dp"
+                    android:layout_marginLeft="@dimen/margin10dp"
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
                     android:background="@color/colorGray" />
 
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="4dp"
+                    app:cardCornerRadius="3dp" >
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/viewPagerService"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/serviceHeight" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
                 <LinearLayout
+                    android:padding="@dimen/padding5dp"
+                    android:background="@color/colorBlack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:weightSum="10"
@@ -137,17 +162,20 @@
                         />
 
                     <TextView
+
                         android:id="@+id/tvPriceInfo"
                         android:layout_marginLeft="@dimen/margin16dp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorWhite"
                         android:textSize="@dimen/fontMediumSmall"
                         android:gravity="center"/>
 
                 </LinearLayout>
 
                 <View
+                    android:layout_marginRight="@dimen/margin10dp"
+                    android:layout_marginLeft="@dimen/margin10dp"
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
                     android:background="@color/colorGray" />
@@ -159,6 +187,7 @@
                     style="@style/button.Login"
                     android:layout_margin="@dimen/margin8dp"/>
             </LinearLayout>
+
 
         </LinearLayout>
 

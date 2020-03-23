@@ -87,4 +87,21 @@
         <item name="android:layout_marginBottom">@dimen/margin8dp</item>
     </style>
 
+
+
+    <style name="textInfomationDriver">
+        android:id="@+id/tvDestination"
+        android:layout_width="@dimen/width0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:textColor="#000000"
+        <item name="android:layout_width">@dimen/width0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">6</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/fontSmallBigger</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

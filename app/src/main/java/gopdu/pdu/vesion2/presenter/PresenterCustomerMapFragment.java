@@ -93,7 +93,7 @@ public class PresenterCustomerMapFragment implements CustomerMapResponse {
     }
 
     public void pushInfomationTravel(String key) {
-        customerMapViewModel.pushInfomationTravel(key);
+        callback.pushInfomationTravel(key);
     }
 
     @Override

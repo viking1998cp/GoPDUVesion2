@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -184,6 +185,13 @@ public class Common {
     //animation visible view
     public static Animation animationVisible() {
         return  AnimationUtils.loadAnimation(GoPDUApplication.getInstance(), R.anim.slide_up);
+    }
+
+    //
+    public static String formatVNĐ(int price){
+        DecimalFormat formatter = new DecimalFormat(GoPDUApplication.getInstance().getString(R.string.patternVNĐ));
+        return formatter.format(price);
+
     }
 
 

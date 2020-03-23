@@ -65,4 +65,19 @@
     <string name="toast_message_not_network_server">Vui lòng kiểm tra lại kết nối mạng</string>
     <string name="click_again_exits">Nhất quay lại một lần nữa để thoát ứng dụng</string>
 
+    //Information
+    <string name="nameInformationDriver">Tên </string>
+    <string name="ageInformationDriver">Tuổi </string>
+    <string name="licensePlateInformationDriver">Biển số xe </string>
+
+    //driver query param
+    <string name="paramID">id</string>
+    <string name="paramName">name</string>
+    <string name="paramGender">gender</string>
+    <string name="paramBirthDate">birthdate</string>
+    <string name="paramLicenseplate">licenseplates</string>
+    <string name="paramImv_Driverface">imv_driverface</string>
+    <string name="paramNumberPhone">numberphone</string>
+    <string name="cancel">Hủy chuyến</string>
+    <string name="patternVNĐ">###,###,###</string>
 </resources>

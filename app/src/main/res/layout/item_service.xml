@@ -5,23 +5,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_margin="@dimen/margin10dp"
-        android:weightSum="10">
+        android:gravity="center">
         <ImageView
+            android:paddingTop="@dimen/padding5dp"
+            android:paddingBottom="@dimen/padding5dp"
+            android:scaleType="fitCenter"
             android:layout_gravity="center"
             android:id="@+id/imvService"
-            android:padding="@dimen/padding5dp"
-            android:layout_width="@dimen/width0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
             android:src="@drawable/ic_bike"
             />
         <TextView
+            android:text="gưgègreg"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin8dp"
             android:id="@+id/tvService"
-            android:layout_marginLeft="@dimen/margin8dp"
-            style="@style/textLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/fontNormal"
             android:textStyle="bold"
-            android:layout_gravity="center"/>
+            />
     </LinearLayout>
 </layout>

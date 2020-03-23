@@ -77,7 +77,9 @@ dependencies {
     api 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.github.mohammadatif:Animatoo:master'
 
-    //loader
+    //load Image
+    implementation 'com.koushikdutta.ion:ion:2.1.6'
+
     //loader
     implementation 'com.github.jorgecastilloprz:fillableloaders:1.03@aar'
     implementation 'com.jaredrummler:animated-svg-view:1.0.6'
@@ -88,6 +90,11 @@ dependencies {
     //view animation
     def lottieVersion = "3.0.7"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    //cicle view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
 }
 

@@ -22,6 +22,10 @@
 
         <include layout="@layout/content_infomation_travel"
             android:id="@+id/content_infomation"/>
+
+        <include layout="@layout/content_infomation_driver"
+            android:id="@+id/content_infomationDriver"
+           />
         <LinearLayout
             android:visibility="gone"
             android:gravity="center"

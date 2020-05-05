@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.database.DataSnapshot;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,7 +19,9 @@ import gopdu.pdu.vesion2.Common;
 import gopdu.pdu.vesion2.GoPDUApplication;
 import gopdu.pdu.vesion2.R;
 import gopdu.pdu.vesion2.modelresponse.CustomerMapResponse;
+import gopdu.pdu.vesion2.network.HistoryDetailRespon;
 import gopdu.pdu.vesion2.object.Location;
+import gopdu.pdu.vesion2.object.ServerResponse;
 
 public class CustomerMapFragmentViewModel {
 
@@ -32,7 +35,8 @@ public class CustomerMapFragmentViewModel {
         if (actionId == EditorInfo.IME_ACTION_DONE
                 || actionId == EditorInfo.IME_ACTION_SEARCH
                 || actionId == EditorInfo.IME_ACTION_NEXT
-        ) {
+                || actionId == EditorInfo.IME_ACTION_GO
+        ){
 
             if (mGoogleApiClient.isConnected()) {
                 callback.searchOnClick();
@@ -111,5 +115,25 @@ public class CustomerMapFragmentViewModel {
             callback.startRide();
         }
 
+    }
+
+    public void checkRating(HistoryDetailRespon historyDetailRespon) {
+        if(historyDetailRespon.getSuccess()){
+            callback.showRatingView(historyDetailRespon.getData());
+        }
+    }
+
+    public void insertRating(ServerResponse serverResponse) {
+        if(serverResponse.getSuccess()){
+            callback.insertRatingSuccess(serverResponse.getMessenger());
+        }else {
+            callback.insertRatingFaild(serverResponse.getMessenger());
+        }
+    }
+
+    public void resumeTrip(DataSnapshot dataSnapshot) {
+        if(dataSnapshot.exists()){
+            callback.resumTrip(dataSnapshot);
+        }
     }
 }

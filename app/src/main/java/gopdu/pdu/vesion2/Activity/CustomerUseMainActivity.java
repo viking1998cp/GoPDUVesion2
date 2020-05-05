@@ -8,22 +8,22 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import gopdu.pdu.vesion2.Common;
 import gopdu.pdu.vesion2.IOnBackPressed;
 import gopdu.pdu.vesion2.R;
 import gopdu.pdu.vesion2.databinding.ActivityCustomerUseMainBinding;
 import gopdu.pdu.vesion2.fragment.CustomerMap_Fragment;
+import gopdu.pdu.vesion2.fragment.HistoryFragment;
 
 public class CustomerUseMainActivity extends AppCompatActivity {
 
     private ActivityCustomerUseMainBinding binding;
     private int back =1;
     private Fragment customerFragment;
+    private Fragment historyFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,25 +34,25 @@ public class CustomerUseMainActivity extends AppCompatActivity {
 
     private void init() {
         customerFragment = new CustomerMap_Fragment();
-        loadFragment(customerFragment);
+        historyFragment = new HistoryFragment();
+        loadFragment(customerFragment, R.id.navigation_book);
+
     }
 
     private void setUpMenuOnClick() {
         binding.navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Fragment fragment;
                 switch (menuItem.getItemId()) {
-                    case R.id.navigation_gifts:
+                    case R.id.navigation_book:
                         if(back != 1){
                             back =1;
-                            loadFragment(customerFragment);
+                            loadFragment(customerFragment, R.id.navigation_book);
                         }
                         return true;
-                    case R.id.navigation_cart:
+                    case R.id.navigation_history:
                         if(back != 2){
-//                            fragment = new HistoryCustomerFragment();
-//                            loadFragment(fragment);
+                            loadFragment(historyFragment, R.id.navigation_history);
                             back =2;
                         }
 
@@ -70,12 +70,18 @@ public class CustomerUseMainActivity extends AppCompatActivity {
             }
         });
     }
-    public void loadFragment(Fragment fragment) {
-
+    public void loadFragment(Fragment fragment, int id) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_container, fragment,"MyFragment");
+
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        if (fragment.isAdded()) {
+            fragmentTransaction.show(fragment);
+        } else {
+            fragmentTransaction.addToBackStack(id + "stack_item");
+            fragmentTransaction.replace(R.id.frame_container, fragment);
+
+        }
         fragmentTransaction.commit();
     }
     

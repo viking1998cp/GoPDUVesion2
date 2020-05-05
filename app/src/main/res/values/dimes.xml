@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="radius1dp">1dp</dimen>
+    <dimen name="imvLogo">64dp</dimen>
+    <dimen name="imvArrow">50dp</dimen>
+    <dimen name="imvDriverface">90dp</dimen>
+    <dimen name="peekHeightMenuInfomationDriver">60dp</dimen>
+    <dimen name="historyMap">220dp</dimen>
+    <dimen name="lineWidth">2dp</dimen>
+    <dimen name="imvFace">80dp</dimen>
+
     <dimen name="textBigsize">30sp</dimen>
     <dimen name="buttonHeightMain">70dp</dimen>
     <dimen name="paddingMain" >40dp</dimen>
 
-    <dimen name="bigFont">60sp</dimen>
+    <dimen name="bigFont">40sp</dimen>
     <dimen name="bigFontMedium">30sp</dimen>
     <dimen name="fontNormal">14sp</dimen>
     <dimen name="fontMediumSmall">16sp</dimen>
@@ -16,8 +25,9 @@
 
     <dimen name="padding10dp">10dp</dimen>
     <dimen name="margin8dp">8dp</dimen>
-    <dimen name="imvIconSmall">24dp</dimen>
-    <dimen name="imvIcon">36dp</dimen>
+    <dimen name="imvIconMedium">24dp</dimen>
+    <dimen name="imvIconBig">36dp</dimen>
+    <dimen name="imvIconSmall">4dp</dimen>
     <dimen name="padding5dp">5dp</dimen>
     <dimen name="margin16dp">16dp</dimen>
 

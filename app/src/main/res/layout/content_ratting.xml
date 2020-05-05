@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:visibility="gone"
+        android:id="@+id/cdlRatting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/margin40dp"
+        >
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            >
+
+            <LinearLayout
+                android:padding="@dimen/padding20dp"
+                android:background="@drawable/background_layout_white"
+                android:layout_margin="@dimen/margin16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/bigFontMedium"
+                    android:text="14.000 VNĐ"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin24dp"
+                    android:padding="@dimen/padding10dp"
+                    android:id="@+id/imvDriverFace"
+                    android:layout_width="@dimen/imvDriverface"
+                    android:layout_height="@dimen/imvDriverface"
+                    />
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_marginTop="@dimen/margin24dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/fontMediumSmall"
+                    android:text="Mạnh Thắng"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"/>
+
+                <TextView
+                    android:id="@+id/tvLicencePlate"
+                    android:layout_marginTop="@dimen/margin16dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/fontMediumSmall"
+                    android:textStyle="bold"
+                    android:text="17-b1 42519"
+                    android:textColor="@color/colorBlack"/>
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/ratting"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:theme="@style/RatingBar"/>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/fillLine"
+                    android:background="@color/colorGray"
+                    android:layout_marginRight="@dimen/margin10dp"
+                    android:layout_marginLeft="@dimen/margin10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="@dimen/margin16dp"
+                    android:orientation="horizontal"
+
+                    android:weightSum="12">
+
+                    <TextView
+                        android:id="@+id/tvLater"
+                        android:layout_width="@dimen/width0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="Để sau"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/fontSmallBigger"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvNever"
+                        android:layout_width="@dimen/width0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        android:gravity="center"
+                        android:text="Không bao giờ"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/fontSmallBigger"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAccept"
+                        android:layout_width="@dimen/width0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="Xác nhận"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/fontSmallBigger"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

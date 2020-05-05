@@ -46,6 +46,7 @@
     <string name="searchLocation">Tìm điểm đến</string>
     <string name="pickOnMapView">Chọn bằng bản đồ</string>
     <string name="distance">%.1f km</string>
+    <string name="booking">Booking: %1$s</string>
 
     //Menu main
     <string name="title_CustomerMap">Đặt chuyến đi</string>
@@ -57,18 +58,21 @@
     <string name="destination">Điểm đến</string>
     <string name="pickup">Điểm đón</string>
     <string name="book">Đặt chuyến</string>
-    <string name="cash">Tiền mặt: %1$d</string>
+    <string name="cash">Tiền mặt: %1$s</string>
     <string name="down">down</string>
     <string name="up">up</string>
     <string name="country">VN</string>
     <string name="birthDateHint">Ngày sinh</string>
     <string name="toast_message_not_network_server">Vui lòng kiểm tra lại kết nối mạng</string>
     <string name="click_again_exits">Nhất quay lại một lần nữa để thoát ứng dụng</string>
+    <string name="price">%1$s VNĐ</string>
 
     //Information
     <string name="nameInformationDriver">Tên </string>
     <string name="ageInformationDriver">Tuổi </string>
     <string name="licensePlateInformationDriver">Biển số xe </string>
+    <string name="pickupShowScreen">Đón tôi ở đây</string>
+    <string name="destinationShowScreen">Điểm đến</string>
 
     //driver query param
     <string name="paramID">id</string>
@@ -80,4 +84,49 @@
     <string name="paramNumberPhone">numberphone</string>
     <string name="cancel">Hủy chuyến</string>
     <string name="patternVNĐ">###,###,###</string>
+
+    //param firebase
+    <string name="paramDriverAvailable">driversAvailable</string>
+    <string name="paramDriverWorking">driverWorking</string>
+    <string name="paramUser">User</string>
+    <string name="paramDriver">Driver</string>
+    <string name="paramCustomerRequest">customerRequest</string>
+    <string name="paramCustomerId">customerRideId</string>
+    <string name="paramDestinationLat">destinationLat</string>
+    <string name="paramDestinationLogt">destinationLongt</string>
+    <string name="paramPrice">price</string>
+    <string name="paramL">l</string>
+    <string name="paramCustomer">Customer</string>
+    <string name="paramDriverRequest">DriverRequest</string>
+
+    <string name="statusTrip">status</string>
+    <string name="tripSuccess">success</string>
+    <string name="tripPayment">payment</string>
+    <string name="tripPickUp">pickup</string>
+    <string name="tripDropOff">drop_off</string>
+    <string name="tripCancel">cancel</string>
+    <string name="tripWaitting">waitting</string>
+
+
+    //Insert ratting param
+    <string name="paramRating">rating</string>
+    <string name="ratingNever">-2</string>
+
+    <string name="title_activity_history_fragment">HistoryFragment</string>
+    <string name="paramDriverId">driverid</string>
+    <string name="paramPage">page</string>
+    <string name="paramStatus">status</string>
+    <string name="param_StateAll">all</string>
+    <string name="param_StatusSuccess">success</string>
+    <string name="Successs">Success</string>
+    <string name="Cancel">Cancel</string>
+    <string name="param_StateCancel">cancel</string>
+    <string name="reciverAllData">Đã tải hết dữ liệu</string>
+    <string name="title_activity_history_detail2">Map</string>
+    <string name="paramUserId">userId</string>
+    <string name="cancelTrip">Chuyến đi đang thực hiện không thể hủy</string>
+    <string name="paramDriverRideId">driverRideId</string>
+    <string name="paramDestination">destination</string>
+
+
 </resources>

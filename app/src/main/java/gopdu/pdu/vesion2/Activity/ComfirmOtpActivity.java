@@ -165,7 +165,7 @@ public class ComfirmOtpActivity extends AppCompatActivity {
         param.put("name", customer.getName());
         param.put("numberphone", customer.getNumberphone());
         param.put("email", customer.getEmail());
-        param.put("birthDate", customer.getBirthDate());
+        param.put("birthDate", customer.getBirthdate());
         registerAccountModel.CheckExitsAccount(param).observe(this, new Observer<ServerResponse>() {
             @Override
             public void onChanged(ServerResponse serverResponse) {

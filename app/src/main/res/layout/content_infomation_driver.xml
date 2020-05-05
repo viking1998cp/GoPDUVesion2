@@ -11,7 +11,7 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_margin="@dimen/margin10dp"
-            android:id="@+id/bottom_sheetDes"
+            android:id="@+id/bottom_sheet_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:behavior_peekHeight="@dimen/peekHeightMenuInfomationDriver"
@@ -63,8 +63,8 @@
                             android:layout_width="0dp"
                             android:layout_height="@dimen/imvDriverface"
                             android:layout_weight="2"
-
                             />
+
                         <LinearLayout
                             android:layout_width="@dimen/width0dp"
                             android:layout_height="match_parent"
@@ -169,6 +169,7 @@
                     </LinearLayout>
 
                     <Button
+                        android:id="@+id/btnEndride"
                         android:paddingLeft="@dimen/padding20dp"
                         android:paddingRight="@dimen/padding20dp"
                         android:layout_marginTop="@dimen/margin24dp"

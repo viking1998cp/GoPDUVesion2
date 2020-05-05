@@ -1,0 +1,245 @@
+<resources>
+  <dimen name="radius1dp">
+    0.15dp
+  </dimen>
+  <dimen name="imvLogo">
+    9.48dp
+  </dimen>
+  <dimen name="imvArrow">
+    7.41dp
+  </dimen>
+  <dimen name="imvDriverface">
+    13.33dp
+  </dimen>
+  <dimen name="peekHeightMenuInfomationDriver">
+    8.89dp
+  </dimen>
+  <dimen name="historyMap">
+    32.59dp
+  </dimen>
+  <dimen name="lineWidth">
+    0.3dp
+  </dimen>
+  <dimen name="imvFace">
+    11.85dp
+  </dimen>
+  <dimen name="textBigsize">
+    4.44sp
+  </dimen>
+  <dimen name="buttonHeightMain">
+    10.37dp
+  </dimen>
+  <dimen name="paddingMain">
+    5.92dp
+  </dimen>
+  <dimen name="bigFont">
+    5.92sp
+  </dimen>
+  <dimen name="bigFontMedium">
+    4.44sp
+  </dimen>
+  <dimen name="fontNormal">
+    2.08sp
+  </dimen>
+  <dimen name="fontMediumSmall">
+    2.37sp
+  </dimen>
+  <dimen name="fontMedium">
+    2.67sp
+  </dimen>
+  <dimen name="fontMediumBig">
+    4.15sp
+  </dimen>
+  <dimen name="fontSmall">
+    1.48sp
+  </dimen>
+  <dimen name="fontSmallBigger">
+    2.37sp
+  </dimen>
+  <dimen name="padding10dp">
+    1.48dp
+  </dimen>
+  <dimen name="margin8dp">
+    1.19dp
+  </dimen>
+  <dimen name="imvIconMedium">
+    3.56dp
+  </dimen>
+  <dimen name="imvIconBig">
+    5.33dp
+  </dimen>
+  <dimen name="imvIconSmall">
+    0.59dp
+  </dimen>
+  <dimen name="padding5dp">
+    0.74dp
+  </dimen>
+  <dimen name="margin16dp">
+    2.37dp
+  </dimen>
+  <dimen name="margin10dp">
+    1.48dp
+  </dimen>
+  <dimen name="widthTabLogin">
+    29.63dp
+  </dimen>
+  <dimen name="margin24dp">
+    3.56dp
+  </dimen>
+  <dimen name="logoLoadingWith">
+    59.26dp
+  </dimen>
+  <dimen name="logoLoadingHeight">
+    26.67dp
+  </dimen>
+  <dimen name="app_bar_height">
+    22.22dp
+  </dimen>
+  <dimen name="marginBiggest">
+    11.85dp
+  </dimen>
+  <dimen name="imvTitleHomeHeight">
+    22.22dp
+  </dimen>
+  <dimen name="cardviewWidth">
+    20.74dp
+  </dimen>
+  <dimen name="cardviewHeight">
+    23.7dp
+  </dimen>
+  <dimen name="cardview_shadow">
+    1.48dp
+  </dimen>
+  <dimen name="imvService">
+    7.41dp
+  </dimen>
+  <dimen name="linearMarginHomePage">
+    22.22dp
+  </dimen>
+  <dimen name="padding20dp">
+    2.96dp
+  </dimen>
+  <dimen name="radiusCardView">
+    1.48dp
+  </dimen>
+  <dimen name="cardviewHeightVoucher">
+    44.44dp
+  </dimen>
+  <dimen name="cardview_shadowVoucher">
+    0.74dp
+  </dimen>
+  <dimen name="lineHeightMedium">
+    2.96dp
+  </dimen>
+  <dimen name="radiusMedium">
+    0.74dp
+  </dimen>
+  <dimen name="strokeSmaill">
+    0.15dp
+  </dimen>
+  <dimen name="radiusLarge">
+    2.22dp
+  </dimen>
+  <dimen name="radiusBiggest">
+    5.92dp
+  </dimen>
+  <dimen name="sideIndicator">
+    0.59sp
+  </dimen>
+  <dimen name="slideViewHeight">
+    51.85dp
+  </dimen>
+  <dimen name="backgroundTitleHeight">
+    14.81dp
+  </dimen>
+  <dimen name="margin28dp">
+    4.15dp
+  </dimen>
+  <dimen name="margin40dp">
+    5.92dp
+  </dimen>
+  <dimen name="padding2dp">
+    0.3dp
+  </dimen>
+  <dimen name="width0dp">
+    0.0dp
+  </dimen>
+  <dimen name="text_medium_letter_spacing">
+    0.0dp
+  </dimen>
+  <dimen name="line_spacing_extra_title">
+    0.3sp
+  </dimen>
+  <dimen name="margin4dp">
+    0.59dp
+  </dimen>
+  <dimen name="padding15dp">
+    2.22dp
+  </dimen>
+  <dimen name="fillLine">
+    0.15dp
+  </dimen>
+  <dimen name="dialogButtonHeight">
+    5.92dp
+  </dimen>
+  <dimen name="radiusIosdialog">
+    41.48dp
+  </dimen>
+  <dimen name="cameraControlHeight">
+    7.41dp
+  </dimen>
+  <dimen name="takeAPicture">
+    11.85dp
+  </dimen>
+  <dimen name="elevationSmall">
+    0.3dp
+  </dimen>
+  <dimen name="empty">
+    0.0dp
+  </dimen>
+  <dimen name="imageAlbum">
+    14.81dp
+  </dimen>
+  <dimen name="imvAlbumProduct">
+    22.22dp
+  </dimen>
+  <dimen name="searchViewHeight">
+    4.44dp
+  </dimen>
+  <dimen name="width3dp">
+    0.44dp
+  </dimen>
+  <dimen name="margin60dp">
+    8.89dp
+  </dimen>
+  <dimen name="lineHeightBig">
+    14.81dp
+  </dimen>
+  <dimen name="margin105dp">
+    15.56dp
+  </dimen>
+  <dimen name="padding40dp">
+    5.92dp
+  </dimen>
+  <dimen name="padding30dp">
+    4.44dp
+  </dimen>
+  <dimen name="peekHeightMenu">
+    37.04dp
+  </dimen>
+  <dimen name="peekHeightMenuActivity">
+    59.26dp
+  </dimen>
+  <dimen name="buttonSearchHeight">
+    5.92dp
+  </dimen>
+  <dimen name="sizeLogoSplash">
+    29.63dp
+  </dimen>
+  <dimen name="menuSize">
+    8.15dp
+  </dimen>
+  <dimen name="serviceHeight">
+    10.37dp
+  </dimen>
+</resources>

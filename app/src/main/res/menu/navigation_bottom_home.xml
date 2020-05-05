@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_gifts"
+        android:id="@+id/navigation_book"
         android:icon="@drawable/ic_phone"
         android:title="@string/title_CustomerMap" />
 
     <item
-        android:id="@+id/navigation_cart"
+        android:id="@+id/navigation_history"
         android:icon="@drawable/ic_clock"
         android:title="@string/title_History" />
 

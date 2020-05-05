@@ -59,6 +59,7 @@
         <activity android:name=".activity.ComfirmOtpActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".MainActivity"/>
+        <activity android:name=".activity.HistoryDetailActivityActivity"/>
     </application>
 
 </manifest>

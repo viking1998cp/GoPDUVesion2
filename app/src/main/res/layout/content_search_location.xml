@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
         <androidx.core.widget.NestedScrollView
 
-            android:id="@+id/bottom_sheetDes"
+            android:id="@+id/bottom_sheet_des"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             app:behavior_peekHeight="@dimen/peekHeightMenu"

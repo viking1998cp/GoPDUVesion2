@@ -4,7 +4,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_marginLeft="@dimen/margin8dp"
         android:layout_marginRight="@dimen/margin8dp"
-
+        android:visibility="gone"
         android:id="@+id/cdlInfomation"
         android:layout_marginBottom="@dimen/menuSize"
         android:layout_gravity="bottom"

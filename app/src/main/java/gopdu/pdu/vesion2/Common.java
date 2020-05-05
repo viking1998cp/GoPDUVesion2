@@ -136,6 +136,8 @@ public class Common {
         }
     }
 
+
+    //km
     public static float getDistance(LatLng destinationLng, LatLng pickupLng){
         return (float) SphericalUtil.computeDistanceBetween(destinationLng, pickupLng);
     }

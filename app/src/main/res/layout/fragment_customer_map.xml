@@ -14,6 +14,10 @@
             android:layout_height="match_parent"
             />
 
+        <include layout="@layout/content_ratting"
+            android:id="@+id/content_ratting"
+            />
+
         <include layout="@layout/content_search_location"
             android:id="@+id/content_search"/>
 
@@ -26,6 +30,7 @@
         <include layout="@layout/content_infomation_driver"
             android:id="@+id/content_infomationDriver"
            />
+
         <LinearLayout
             android:visibility="gone"
             android:gravity="center"

@@ -1,16 +1,26 @@
 package gopdu.pdu.vesion2.object;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Customer  implements Serializable {
+    @SerializedName("id")
+    @Expose
     private String id;
+    @SerializedName("name")
+    @Expose
     private String name;
-    private String birthDate;
+    @SerializedName("birthdate")
+    @Expose
+    private String birthdate;
+    @SerializedName("numberphone")
+    @Expose
     private String numberphone;
+    @SerializedName("email")
+    @Expose
     private String email;
-
-    public Customer() {
-    }
 
     public String getId() {
         return id;
@@ -28,12 +38,12 @@ public class Customer  implements Serializable {
         this.name = name;
     }
 
-    public String getBirthDate() {
-        return birthDate;
+    public String getBirthdate() {
+        return birthdate;
     }
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getNumberphone() {

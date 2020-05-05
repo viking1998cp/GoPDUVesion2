@@ -5,9 +5,13 @@ import android.location.Address;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.database.DataSnapshot;
 
 import gopdu.pdu.vesion2.modelresponse.CustomerMapResponse;
+import gopdu.pdu.vesion2.network.HistoryDetailRespon;
+import gopdu.pdu.vesion2.object.HistoryDetail;
 import gopdu.pdu.vesion2.object.Location;
+import gopdu.pdu.vesion2.object.ServerResponse;
 import gopdu.pdu.vesion2.view.ViewCustomerMapListener;
 import gopdu.pdu.vesion2.viewmodel.CustomerMapFragmentViewModel;
 
@@ -92,6 +96,19 @@ public class PresenterCustomerMapFragment implements CustomerMapResponse {
         customerMapViewModel.backOnCick(customPickup, locationDes, distance);
     }
 
+    public void reciverCheckRatting(HistoryDetailRespon historyDetailRespon) {
+        customerMapViewModel.checkRating(historyDetailRespon);
+    }
+
+    public void reciverEndRide(boolean requestBoolena) {
+        customerMapViewModel.endRide(requestBoolena);
+    }
+
+
+    public void reciverInsertRating(ServerResponse serverResponse) {
+        customerMapViewModel.insertRating(serverResponse);
+    }
+
     public void pushInfomationTravel(String key) {
         callback.pushInfomationTravel(key);
     }
@@ -106,8 +123,28 @@ public class PresenterCustomerMapFragment implements CustomerMapResponse {
         callback.endRide();
     }
 
-    public void reciverEndRide(boolean requestBoolena) {
-        customerMapViewModel.endRide(requestBoolena);
+    @Override
+    public void showRatingView(HistoryDetail data) {
+        callback.showRatingView(data);
     }
 
+    @Override
+    public void insertRatingSuccess(String messenger) {
+        callback.insertRatingSuccess(messenger);
+    }
+
+    @Override
+    public void insertRatingFaild(String messenger) {
+        callback.insertRatingFaild(messenger);
+    }
+
+    @Override
+    public void resumTrip(DataSnapshot dataSnapshot) {
+        callback.resumTrip(dataSnapshot);
+    }
+
+
+    public void reciverResumeTrip(DataSnapshot dataSnapshot) {
+        customerMapViewModel.resumeTrip(dataSnapshot);
+    }
 }

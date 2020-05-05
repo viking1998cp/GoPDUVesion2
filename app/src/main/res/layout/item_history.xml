@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin8dp"
+            android:layout_marginLeft="@dimen/margin10dp"
+            android:layout_marginRight="@dimen/margin10dp"
+            android:layout_marginBottom="@dimen/margin16dp"
+            android:background="@drawable/background_layout_white"
+            android:paddingLeft="@dimen/padding10dp"
+            android:paddingRight="@dimen/padding10dp"
+            android:paddingTop="@dimen/padding5dp"
+            android:paddingBottom="@dimen/padding5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/tvState"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:text="Success"
+                    android:padding="@dimen/padding5dp"
+                    android:background="@drawable/background_button_no_boder_blue"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/fontMediumSmall"/>
+
+                <TextView
+                    android:id="@+id/tvDateTime"
+                    android:layout_width="0dp"
+                    android:layout_weight="8"
+                    android:layout_height="match_parent"
+                    android:text="12-08-1098-12"
+                    android:padding="@dimen/padding5dp"
+                    android:textColor="@color/colorBlack"
+                    android:gravity="right"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fontMediumSmall"/>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="@dimen/margin10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/separateHeight"
+                android:background="@color/colorGray" />
+            <LinearLayout
+                android:padding="@dimen/padding5dp"
+                android:layout_marginTop="@dimen/margin10dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10">
+
+                <ImageView
+                    android:padding="@dimen/padding2dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/imvIconMedium"
+                    android:src="@drawable/ic_circle_blue"/>
+
+                <TextView
+                    android:id="@+id/tvPickUpName"
+                    android:paddingLeft="@dimen/padding20dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="9"
+                    android:layout_height="match_parent"
+                    android:text="12-08-1098-12"
+                    android:textColor="@color/colorBlack"
+                    android:gravity="left"
+                    android:textSize="@dimen/fontMediumSmall"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="@dimen/padding5dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10">
+
+                <ImageView
+
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/imvIconSmall"
+                    android:src="@drawable/ic_circle_gray"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="9"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="@dimen/padding5dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10">
+
+                <ImageView
+
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/imvIconSmall"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_circle_gray" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="9"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="@dimen/padding5dp"
+
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10">
+
+                <ImageView
+                    android:padding="@dimen/padding2dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/imvIconMedium"
+                    android:src="@drawable/ic_location"/>
+
+                <TextView
+                    android:id="@+id/tvDestinationName"
+                    android:paddingLeft="@dimen/padding20dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="9"
+                    android:layout_height="match_parent"
+                    android:text="12-08-1098-12"
+                    android:textColor="@color/colorBlack"
+                    android:gravity="left"
+                    android:textSize="@dimen/fontMediumSmall"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="@dimen/padding5dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10">
+
+                <TextView
+                    android:id="@+id/tv_Distance"
+                    android:gravity="center"
+                    android:layout_width="@dimen/width0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="453"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="9"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</layout>

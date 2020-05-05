@@ -3,6 +3,10 @@ package gopdu.pdu.vesion2.view;
 import android.location.Address;
 import android.location.Location;
 
+import com.google.firebase.database.DataSnapshot;
+
+import gopdu.pdu.vesion2.object.HistoryDetail;
+
 public interface ViewCustomerMapListener {
     void searchOnClick();
     void getAddress(Address obj);
@@ -26,4 +30,12 @@ public interface ViewCustomerMapListener {
     void startRide();
 
     void endRide();
+
+    void showRatingView(HistoryDetail data);
+
+    void insertRatingSuccess(String messenger);
+
+    void insertRatingFaild(String messenger);
+
+    void resumTrip(DataSnapshot dataSnapshot);
 }

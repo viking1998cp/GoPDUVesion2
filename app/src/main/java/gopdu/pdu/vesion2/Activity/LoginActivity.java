@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(ServerResponse serverResponse) {
                     if(serverResponse != null){
-                        Log.d("BBB", "onChanged: "+serverResponse.getMessenger());
                         if(serverResponse.getSuccess()){
                             Customer customer = new Customer();
                             customer.setNumberphone(Common.formatPhoneNumber(binding.etPhone.getText().toString()));

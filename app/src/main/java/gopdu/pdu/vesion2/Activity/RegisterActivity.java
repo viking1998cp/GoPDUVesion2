@@ -126,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if(!serverResponse.getSuccess()){
                             Customer customer = new Customer();
                             customer.setName(binding.etfirstName.getText() +" "+binding.etLastname.getText());
-                            customer.setBirthDate(binding.etbirthDate.getText().toString());
+                            customer.setBirthdate(binding.etbirthDate.getText().toString());
                             customer.setEmail(binding.etEmail.getText().toString());
                             customer.setNumberphone(Common.formatPhoneNumber(binding.etPhone.getText().toString()));
                             Intent intent = new Intent(RegisterActivity.this, ComfirmOtpActivity.class);
